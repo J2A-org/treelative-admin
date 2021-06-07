@@ -5,15 +5,15 @@ import App from '@/App.jsx'
 
 import { ChakraProvider } from '@chakra-ui/react'
 
-import { ApolloProvider } from '@apollo/client/react'
-import client from '@/apollo/client'
+import { Provider } from 'urql'
+import client from '@/graphql/client'
 
 render(
   <StrictMode>
     <ChakraProvider>
-      <ApolloProvider client={client}>
+      <Provider value={client}>
         <App />
-      </ApolloProvider>
+      </Provider>
     </ChakraProvider>
   </StrictMode>,
   document.getElementById('root')

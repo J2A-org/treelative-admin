@@ -1,10 +1,7 @@
 import React from 'react'
 
-import useQuery from '@/apollo/hooks/useQuery'
-import { QUERY_USER } from '@/apollo/queries/users'
-
-import Loading from '@/components/_common/Loading'
-import ErrorAlert from '@/components/_common/ErrorAlert'
+import { useQuery } from 'urql'
+import { QUERY_USER } from '@/graphql/queries/users'
 
 import {
   Stack,
@@ -12,13 +9,17 @@ import {
 } from '@chakra-ui/react'
 
 export default function Example () {
-  const { loading, error, data } = useQuery(QUERY_USER)
+  const [result] = useQuery({
+    query: QUERY_USER
+  })
 
-  if (error) return <ErrorAlert>{error.message}</ErrorAlert>
+  const { data, fetching, error } = result
 
-  if (loading) return <Loading />
+  if (error) return <p>{error.message}</p>
 
-  const users = data?.queryUser
+  if (fetching) return <p>Loading...</p>
+
+  const users = data?.users
 
   return (
     <Stack mt='8' alignItems='center'>

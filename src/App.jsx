@@ -10,7 +10,7 @@ import Example from '@/components/Example.jsx'
 export default function App () {
   return (
     <Center h='100vh' flexDirection='column'>
-      <Heading size='2xl'>Treelative Admin</Heading>
+      <Heading as='h1' size='2xl'>Treelative Admin</Heading>
       <Example />
     </Center>
   )
