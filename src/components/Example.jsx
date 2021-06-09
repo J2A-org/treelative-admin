@@ -15,16 +15,14 @@ export default function Example () {
 
   const { data, fetching, error } = result
 
-  if (error) return <p>{error.message}</p>
-
-  if (fetching) return <p>Loading...</p>
-
   const users = data?.users
 
   return (
     <Stack mt='8' alignItems='center'>
       <Heading as='h2' size='md'>example fetching users</Heading>
-      {users.map(user => (
+      {fetching && <p>Loading...</p>}
+      {error && <p>{error.message}</p>}
+      {users && users.map(user => (
         <Heading key={user.id} as='h3' size='sm'>{user.fullName}</Heading>
       ))}
     </Stack>
