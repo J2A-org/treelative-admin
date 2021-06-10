@@ -5,7 +5,11 @@ import { QUERY_USER } from '@/graphql/queries/users'
 
 import {
   Stack,
-  Heading
+  Heading,
+  Table,
+  Thead,
+  Tr,
+  Th
 } from '@chakra-ui/react'
 
 export default function Example () {
@@ -17,13 +21,26 @@ export default function Example () {
 
   const users = data?.users
 
+  console.log(users)
+
   return (
     <Stack mt='8' alignItems='center'>
-      <Heading as='h2' size='md'>example fetching users</Heading>
       {fetching && <p>Loading...</p>}
       {error && <p>{error.message}</p>}
       {users && users.map(user => (
-        <Heading key={user.id} as='h3' size='sm'>{user.fullName}</Heading>
+        <Table
+          key={user.id}
+          variant='simple'
+        >
+          <Thead>
+            <Tr>
+              <Th>Full Name</Th>
+              <Th>into</Th>
+              <Th isNumeric>multiply by</Th>
+            </Tr>
+          </Thead>
+          <Heading as='h3' size='sm'>{user.fullName}</Heading>
+        </Table>
       ))}
     </Stack>
   )
