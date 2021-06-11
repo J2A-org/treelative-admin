@@ -24,7 +24,7 @@ export default function Login () {
     <Box
       width='100vw'
       height='100vh'
-      background="url('https://www.pxwall.com/wp-content/uploads/2018/06/Wallpaper%20forest,%20sunset,%20fox,%204k,%20Abstract%20769388448.jpg')"
+      background="url('https://res.cloudinary.com/arun99-dev/image/upload/v1623417231/background-login_khdr3c.jpg')"
       backgroundSize='cover'
       backgroundPosition='center '
     >
@@ -35,6 +35,7 @@ export default function Login () {
           color='white'
           minHeight='400px'
           overflow='hidden'
+          fontSize='18px'
         >
           <Flex
             p='13px'
@@ -60,8 +61,9 @@ export default function Login () {
                 type='text'
                 autoFocus
                 w='200px'
-                h='24px'
+                h='27px'
                 p='0px'
+                fontSize='18px'
                 border='none'
                 cursor='default'
                 _focus={{ border: 'none' }}
@@ -78,6 +80,7 @@ export default function Login () {
                   w='200px'
                   h='24px'
                   p='0px'
+                  fontSize='18px'
                   border='none'
                   cursor='default'
                   _focus={{ border: 'none' }}
