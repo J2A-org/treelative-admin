@@ -78,7 +78,7 @@ export default function Login () {
                   type='password'
                   autoFocus
                   w='200px'
-                  h='24px'
+                  h='27px'
                   p='0px'
                   fontSize='18px'
                   border='none'
