@@ -18,7 +18,7 @@ export default function Example () {
   const users = data?.users
 
   return (
-    <Stack mt='8' alignItems='center'>
+    <Stack alignItems='center'>
       {fetching && <p>Loading...</p>}
       {error && <p>{error.message}</p>}
       {users && users.map(user => (

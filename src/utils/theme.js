@@ -33,9 +33,9 @@ const theme = extendTheme({
         colorScheme: 'blue'
       },
       variants: {
-        sidebar: {
-          _hover: { bg: 'blue.800' },
-          _active: { bg: 'blue.800' }
+        header: {
+          _hover: { bg: 'blue.700' },
+          _active: { bg: 'blue.700' }
         }
       }
 

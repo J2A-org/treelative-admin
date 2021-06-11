@@ -10,7 +10,7 @@ import ResetPassword from 'pages/ResetPassword.jsx'
 const routes = {
   '/': [Example, { title: 'Example', isAdminOnly: true }],
   '/login': [Login, { title: 'Login', isPublic: true }],
-  '/resetPassword/:userID/:hash': [ResetPassword, { title: 'Reset Password', isPublic: true }]
+  '/resetPassword/:hash': [ResetPassword, { title: 'Reset Password', isPublic: true }]
 }
 
 export default function App () {
