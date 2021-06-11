@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { useQuery } from 'urql'
-import { QUERY_USER } from '@/graphql/queries/users'
+import { QUERY_USER } from 'graphql/queries/users'
 
 import {
   Stack,

@@ -1,16 +1,17 @@
 import React, { StrictMode } from 'react'
 import { render } from 'react-dom'
 
-import App from '@/App.jsx'
+import App from './App.jsx'
 
 import { ChakraProvider } from '@chakra-ui/react'
+import theme from 'utils/theme'
 
 import { Provider } from 'urql'
-import client from '@/graphql/client'
+import client from 'graphql/client'
 
 render(
   <StrictMode>
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <Provider value={client}>
         <App />
       </Provider>

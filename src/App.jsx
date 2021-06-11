@@ -1,17 +1,20 @@
 import React from 'react'
 
-import {
-  Center,
-  Heading
-} from '@chakra-ui/react'
+import useRoutes from 'hooks/useRoutes'
+import withLayout from 'hocs/withLayout'
 
-import Example from '@/components/Example.jsx'
+import Example from 'pages/Example.jsx'
+import Login from 'pages/Login.jsx'
+import ResetPassword from 'pages/ResetPassword.jsx'
+
+const routes = {
+  '/': [Example, { title: 'Example' }],
+  '/login': [Login, { title: 'Login', isPublic: true }],
+  '/resetPassword/:userID/:hash': [ResetPassword, { title: 'Reset Password', isPublic: true }]
+}
 
 export default function App () {
-  return (
-    <Center h='100vh' flexDirection='column'>
-      <Heading as='h1' size='2xl'>Treelative Admin</Heading>
-      <Example />
-    </Center>
-  )
+  const MatchedComponent = withLayout(useRoutes(routes, '/'))
+
+  return <MatchedComponent />
 }

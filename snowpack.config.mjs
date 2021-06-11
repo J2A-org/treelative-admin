@@ -1,7 +1,13 @@
 /** @type {import("snowpack").SnowpackUserConfig } */
 export default {
   alias: {
-    '@': './src'
+    graphql: './src/graphql',
+    pages: './src/pages',
+    components: './src/components',
+    hocs: './src/hocs',
+    hooks: './src/hooks',
+    utils: './src/utils',
+    images: './src/images'
   },
   mount: {
     public: { url: '/', static: true },
@@ -12,7 +18,7 @@ export default {
     '@snowpack/plugin-dotenv'
   ],
   routes: [
-    /* ... */
+    { match: 'routes', src: '.*', dest: '/index.html' }
   ],
   optimize: {
     bundle: true
