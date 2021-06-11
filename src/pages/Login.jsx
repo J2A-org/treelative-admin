@@ -24,7 +24,9 @@ export default function Login () {
     <Box
       width='100vw'
       height='100vh'
-      background='radial-gradient(#111, #000)'
+      background="url('https://www.pxwall.com/wp-content/uploads/2018/06/Wallpaper%20forest,%20sunset,%20fox,%204k,%20Abstract%20769388448.jpg')"
+      backgroundSize='cover'
+      backgroundPosition='center '
     >
       <Modal isOpen isCentered>
         <ModalContent
