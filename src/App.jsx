@@ -8,7 +8,7 @@ import Login from 'pages/Login.jsx'
 import ResetPassword from 'pages/ResetPassword.jsx'
 
 const routes = {
-  '/': [Example, { title: 'Example' }],
+  '/': [Example, { title: 'Example', isAdminOnly: true }],
   '/login': [Login, { title: 'Login', isPublic: true }],
   '/resetPassword/:userID/:hash': [ResetPassword, { title: 'Reset Password', isPublic: true }]
 }

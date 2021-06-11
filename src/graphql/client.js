@@ -7,9 +7,9 @@ export default createClient({
   url: import.meta.env.SNOWPACK_PUBLIC_GRAPHQL_URL,
   exchanges: [devtoolsExchange, dedupExchange, cacheExchange({}), fetchExchange],
   fetchOptions: () => {
-    const authorization = window.localStorage.getItem('AUTH_SESSION_ID') || null
+    const AUTH_SESSION_ID = window.localStorage.getItem('AUTH_SESSION_ID') || null
     return {
-      headers: { authorization }
+      headers: { AUTH_SESSION_ID }
     }
   }
 })

@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react'
 
-import useAuthUser from 'hooks/useAuthUser'
-
 import client from 'graphql/client'
 import { WHO_AM_I } from 'graphql/queries/auth'
 
@@ -27,7 +25,7 @@ const logout = () => {
 }
 
 const withLayout = (WrappedComponent) => () => {
-  const authUser = useAuthUser()
+  const [authUser, setAuthUser] = useState()
 
   const { isDesktop, responsive } = useDevice()
 
@@ -49,7 +47,8 @@ const withLayout = (WrappedComponent) => () => {
       client
         .query(WHO_AM_I)
         .toPromise()
-        .then(({ error }) => {
+        .then(({ data, error }) => {
+          setAuthUser(data.whoAmI)
           if (error) {
             logout()
           }
