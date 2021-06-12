@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react'
 import { ADD_USER } from 'graphql/mutations/users'
 import { useMutation } from 'urql'
 
+import { startOfToday } from 'date-fns'
+
 import {
   Input,
   Stack,
@@ -34,7 +36,7 @@ const schemaValidation = object().shape({
   shortName: string().required()
 })
 
-export default function CreateUser () {
+export default function CreateUser ({ onCreateComplete }) {
   const toast = useToast()
 
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -50,28 +52,33 @@ export default function CreateUser () {
 
   const { register, handleSubmit, formState: { errors }, reset: resetForm, setFocus, setValue, getValues, watch } = useForm({
     resolver: yupResolver(schemaValidation),
-    defaultValues: { dateOfBirth: new Date().toISOString() }
+    defaultValues: { dateOfBirth: startOfToday().toISOString() }
   })
   watch(['dateOfBirth', 'birthLocation', 'currentLocation'])
 
   useEffect(() => { isOpen && setTimeout(() => setFocus('username'), 1) }, [isOpen])
 
-  const onSubmit = (input) => {
-    console.log(input.birthLocation)
-    // createUser({ variables: { input } })
-    //   .then(result => {
-    //     if (result.data) {
-    //       toast({
-    //         title: 'Successfully created the user',
-    //         status: 'success',
-    //         position: 'top',
-    //         duration: 5000,
-    //         isClosable: true
-    //       })
-    //       handleClose()
-    //     }
-    //   })
-    //   .catch(setInternalError)
+  const onSubmit = ({ birthLocation, currentLocation, ...rest }) => {
+    const input = {
+      ...rest,
+      birthLocation: birthLocation?.value,
+      currentLocation: currentLocation?.value
+    }
+    createUser({ input })
+      .then(result => {
+        if (result.data) {
+          onCreateComplete(result.data.addUser)
+          toast({
+            title: 'Successfully created the user',
+            status: 'success',
+            position: 'top',
+            duration: 5000,
+            isClosable: true
+          })
+          handleClose()
+        }
+      })
+      .catch(setInternalError)
   }
 
   return (

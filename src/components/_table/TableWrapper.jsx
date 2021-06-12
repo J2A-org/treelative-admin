@@ -40,7 +40,9 @@ export default function TableWrapper (props) {
   const [hasMoreItems, setHasMoreItems] = useState(false)
   const [isFetchingMore, setIsFetchingMore] = useState(false)
 
-  const [allData, setAllData] = useState(result?.data?.allData || [])
+  const [allData, setAllData] = useState([])
+  const [filteredCount, setFilteredCount] = useState(0)
+  const [totalCount, setTotalCount] = useState(0)
 
   // on initial load
   useEffect(() => {
@@ -49,6 +51,8 @@ export default function TableWrapper (props) {
         setAllData(result.data.allData)
         setHasMoreItems(result.data.allData.length >= TAKE_LIMIT)
         setHasInitiallyLoaded(true)
+        setFilteredCount(result?.data?.filteredCount)
+        setTotalCount(result?.data?.allCount)
       }
     }
   }, [result.fetching, hasInitiallyLoaded])
@@ -80,7 +84,7 @@ export default function TableWrapper (props) {
       if (!result.fetching && isFiltering && result?.data?.allData) {
         setAllData(result.data.allData)
         setHasMoreItems(result.data.allData.length >= TAKE_LIMIT)
-        setIsRefetching(false)
+        setIsFiltering(false)
       }
     }
   }, [result.fetching, hasInitiallyLoaded])
@@ -91,8 +95,8 @@ export default function TableWrapper (props) {
   }
 
   const handleSearch = (fuzzySearch) => {
-    setIsFiltering(true)
     if (fuzzySearch) {
+      setIsFiltering(true)
       setVariables({
         ...variables,
         where: {
@@ -131,14 +135,17 @@ export default function TableWrapper (props) {
     })
   }
 
-  const CreateNewComponent = CreateNew ? useMemo(() => <CreateNew {...props} />, []) : null
+  const onCreateComplete = (newData) => {
+    setAllData([newData, ...allData])
+    setFilteredCount(filteredCount + 1)
+    setTotalCount(totalCount + 1)
+  }
+
+  const CreateNewComponent = CreateNew ? useMemo(() => <CreateNew {...props} onCreateComplete={onCreateComplete} />, [allData.length]) : null
 
   if (result.error) return <ErrorDialog>{result.error.message}</ErrorDialog>
 
   if (!hasInitiallyLoaded) return <Loading />
-
-  const filteredCount = result?.data?.filteredCount || 0
-  const totalCount = result?.data?.allCount || 0
 
   return (
     <DataTable
