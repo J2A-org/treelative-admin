@@ -26,10 +26,7 @@ export default function Users () {
       rowKey='id'
       rowType='user'
       buildSearch={buildSearch}
-      // fuzzyKey='users'
       defaultOrderBy={[{ fullName: 'asc' }]}
-      // filterWhereVar={userFilterWhereVar}
-      // filterOrderByVar={userFilterOrderByVar}
       // createComponent={CreateUser}
       // selectionVar={selectedUsersVar}
     />

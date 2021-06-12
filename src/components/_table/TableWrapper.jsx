@@ -19,8 +19,6 @@ export default function TableWrapper (props) {
     buildSearch,
     additionalWhere = {},
     defaultOrderBy = [],
-    filterWhereVar,
-    filterOrderByVar,
     createComponent: CreateNew = null,
     isEmbedded = false
   } = props
@@ -108,6 +106,23 @@ export default function TableWrapper (props) {
     }
   }
 
+  const handleOrderBy = (orderBy) => {
+    setIsFiltering(true)
+    if (orderBy) {
+      setVariables({
+        ...variables,
+        orderBy,
+        skip: 0
+      })
+    } else {
+      setVariables({
+        ...variables,
+        orderBy: defaultOrderBy,
+        skip: 0
+      })
+    }
+  }
+
   const handleFetchMore = () => {
     setIsFetchingMore(true)
     setVariables({
@@ -140,8 +155,8 @@ export default function TableWrapper (props) {
       hasMoreItems={hasMoreItems}
       fetchMore={handleFetchMore}
       isFetchingMore={isFetchingMore}
-      // filterWhereVar={filterWhereVar}
-      // filterOrderByVar={filterOrderByVar}
+      orderBy={variables.orderBy}
+      handleOrderBy={handleOrderBy}
       createComponent={CreateNewComponent}
       isEmbedded={isEmbedded}
       filteredCount={filteredCount}

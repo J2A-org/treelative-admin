@@ -19,7 +19,6 @@ import {
   Grid,
   Alert,
   Stack,
-  Input,
   Button,
   AlertIcon
 } from '@chakra-ui/react'
@@ -41,8 +40,8 @@ export default function DataTable (props) {
     hasMoreItems,
     fetchMore,
     isFetchingMore,
-    // filterWhereVar,
-    // filterOrderByVar,
+    orderBy = [],
+    handleOrderBy,
     createComponent: CreateRecord,
     isEmbedded,
     filteredCount,
@@ -78,7 +77,7 @@ export default function DataTable (props) {
         <Grid as='table' gridTemplateColumns={generateGridTemplateColumns(filteredFields)}>
           <Box as='thead' display='contents'>
             <Box as='tr' display='contents'>
-              {filteredFields.map(({ key, label, justifyContent = 'left' }, idx) => (
+              {filteredFields.map(({ key, label, canSort, justifyContent = 'left' }, idx) => (
                 <TableHeaderCell
                   key={key}
                   field={key}
@@ -86,8 +85,9 @@ export default function DataTable (props) {
                   justifyContent={justifyContent}
                   isLeftEdge={idx === 0}
                   isRightEdge={idx === filteredFields.length - 1}
-                  // filterOrderByVar={filterOrderByVar}
-                  refetch={refetch}
+                  canSort={canSort}
+                  orderBy={orderBy}
+                  handleOrderBy={handleOrderBy}
                 >
                   {label}
                 </TableHeaderCell>

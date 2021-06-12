@@ -7,33 +7,22 @@ import {
 
 import { AiOutlineSortDescending, AiOutlineSortAscending } from 'react-icons/ai'
 
-const SortableHeaderCell = ({ children, isLeftEdge, isRightEdge, field, filterOrderByVar, refetch, ...rest }) => {
-  const orderByField = filterOrderByVar().find(orderBy => orderBy.field === field)
+const SortableHeaderCell = ({ children, isLeftEdge, isRightEdge, field, canSort, orderBy, handleOrderBy, ...rest }) => {
+  const activeOrderBy = orderBy.find(orderBy => Object.keys(orderBy)[0] === field)
 
   const sortBy = (value) => {
-    filterOrderByVar(filterOrderByVar().map(orderBy => {
-      if (orderBy.field === field) {
-        return {
-          ...orderBy,
-          isActive: Boolean(value),
-          value
-        }
-      } else {
-        return {
-          ...orderBy,
-          // we're only allowing to sort by one field at this time
-          isActive: false
-        }
-      }
-    }))
-    refetch()
+    if (value) {
+      handleOrderBy([{ [field]: value }])
+    } else {
+      handleOrderBy(null)
+    }
   }
 
   const onSort = () => {
-    if (orderByField.isActive) {
-      if (orderByField.value === 'asc') {
+    if (activeOrderBy) {
+      if (activeOrderBy[field] === 'asc') {
         sortBy('desc')
-      } else if (orderByField.value === 'desc') {
+      } else if (activeOrderBy[field] === 'desc') {
         sortBy(undefined)
       }
     } else {
@@ -54,18 +43,18 @@ const SortableHeaderCell = ({ children, isLeftEdge, isRightEdge, field, filterOr
       px='2'
       borderLeftRadius={isLeftEdge ? 'md' : ''}
       borderRightRadius={isRightEdge ? 'md' : ''}
-      onClick={orderByField && onSort}
-      cursor={orderByField ? 'pointer' : ''}
+      onClick={canSort && onSort}
+      cursor={canSort ? 'pointer' : ''}
       {...rest}
     >
-      {orderByField && orderByField.isActive && (
+      {canSort && activeOrderBy && (
         <IconButton
-          aria-label={orderByField.value === 'asc' ? 'Sort Ascending' : 'Sort Descending'}
+          aria-label={activeOrderBy[field] === 'asc' ? 'Sort Ascending' : 'Sort Descending'}
           size='8px'
           variant='outline'
           border='none'
           mr='1'
-          icon={orderByField.value === 'asc' ? <AiOutlineSortAscending fontSize='18px' /> : <AiOutlineSortDescending fontSize='18px' />}
+          icon={activeOrderBy[field] === 'asc' ? <AiOutlineSortAscending fontSize='18px' /> : <AiOutlineSortDescending fontSize='18px' />}
         />
       )}
       {children}
@@ -73,7 +62,7 @@ const SortableHeaderCell = ({ children, isLeftEdge, isRightEdge, field, filterOr
   )
 }
 
-const HeaderCell = ({ children, isLeftEdge, isRightEdge, field, filterOrderByVar, refetch, ...rest }) => {
+const HeaderCell = ({ children, isLeftEdge, isRightEdge, field, orderBy, ...rest }) => {
   return (
     <Flex
       as='th'
@@ -94,6 +83,8 @@ const HeaderCell = ({ children, isLeftEdge, isRightEdge, field, filterOrderByVar
   )
 }
 
-export default (props) => {
-  return props.filterOrderByVar ? <SortableHeaderCell {...props} /> : <HeaderCell {...props} />
+export default ({ orderBy, handleOrderBy, canSort, ...rest }) => {
+  return orderBy
+    ? <SortableHeaderCell canSort={canSort} orderBy={orderBy} handleOrderBy={handleOrderBy} {...rest} />
+    : <HeaderCell {...rest} />
 }
