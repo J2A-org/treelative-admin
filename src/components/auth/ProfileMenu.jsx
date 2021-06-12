@@ -50,7 +50,7 @@ export default function ProfileMenu () {
           </Flex>
 
         </MenuButton>
-        <MenuList>
+        <MenuList zIndex='2'>
           <MenuGroup title='Account'>
             <MenuItem icon={<CgProfile />} onClick={() => { }}>My Profile</MenuItem>
             <MenuItem icon={<RiLockPasswordLine />} onClick={() => { }}>Reset Password</MenuItem>

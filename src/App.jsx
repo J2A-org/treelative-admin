@@ -4,11 +4,13 @@ import useRoutes from 'hooks/useRoutes'
 import withLayout from 'hocs/withLayout'
 
 import Example from 'pages/Example.jsx'
+import Users from 'pages/Users.jsx'
+
 import Login from 'pages/Login.jsx'
 import ResetPassword from 'pages/ResetPassword.jsx'
 
 const routes = {
-  '/': [Example, { title: 'Example', isAdminOnly: true }],
+  '/': [Users, { title: 'Treelative Admin', isAdminOnly: true }],
   '/login': [Login, { title: 'Login', isPublic: true }],
   '/resetPassword/:hash': [ResetPassword, { title: 'Reset Password', isPublic: true }]
 }

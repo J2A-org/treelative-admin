@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-import client from 'graphql/client'
+import { useClient } from 'urql'
 import { WHO_AM_I } from 'graphql/queries/auth'
 
 import Loading from 'components/_common/Loading'
@@ -17,6 +17,8 @@ const logout = () => {
 }
 
 const withLayout = (WrappedComponent) => () => {
+  const client = useClient()
+
   const [authUser, setAuthUser] = useState()
 
   const {

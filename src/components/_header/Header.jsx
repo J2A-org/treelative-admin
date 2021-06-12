@@ -14,11 +14,18 @@ export default () => {
       as='header'
       alignItems='center'
       justifyContent='space-between'
-      px='4'
-      py='2'
+      px='1'
+      py='1'
       bg='blue.800'
     >
-      <Heading as='h1' color='white'>
+      <Heading
+        as='h1'
+        color='white'
+        pl='4'
+        fontSize='32'
+        textTransform='uppercase'
+        letterSpacing='1px'
+      >
         Treelative
         <Badge
           fontSize='xs'
@@ -27,7 +34,7 @@ export default () => {
           mb='6'
           ml='1'
         >
-          Admin
+          ADMIN
         </Badge>
       </Heading>
       <ProfileMenu />
