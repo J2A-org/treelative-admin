@@ -44,6 +44,12 @@ export default function TableWrapper (props) {
   const [filteredCount, setFilteredCount] = useState(0)
   const [totalCount, setTotalCount] = useState(0)
 
+  const turnOffAllLoading = () => {
+    setIsFetchingMore(false)
+    setIsRefetching(false)
+    setIsFiltering(false)
+  }
+
   // on initial load
   useEffect(() => {
     if (!hasInitiallyLoaded) {
@@ -75,20 +81,20 @@ export default function TableWrapper (props) {
       if (!result.fetching && isFetchingMore && result?.data?.allData) {
         setAllData([...allData, ...result.data.allData])
         setHasMoreItems(result.data.allData.length >= TAKE_LIMIT)
-        setIsFetchingMore(false)
+        turnOffAllLoading()
       }
     }
-  }, [result.fetching, hasInitiallyLoaded])
+  }, [result, hasInitiallyLoaded])
 
   // on refetch
   useEffect(() => {
     if (hasInitiallyLoaded) {
       if (!result.fetching && isRefetching && result?.data?.allData) {
         setAllData([...allData.slice(0, allData.length - result.data.allData.length), ...result.data.allData])
-        setIsRefetching(false)
+        turnOffAllLoading()
       }
     }
-  }, [result.fetching, hasInitiallyLoaded])
+  }, [result, hasInitiallyLoaded])
 
   // on filter
   useEffect(() => {
@@ -96,10 +102,10 @@ export default function TableWrapper (props) {
       if (!result.fetching && isFiltering && result?.data?.allData) {
         setAllData(result.data.allData)
         setHasMoreItems(result.data.allData.length >= TAKE_LIMIT)
-        setIsFiltering(false)
+        turnOffAllLoading()
       }
     }
-  }, [result.fetching, hasInitiallyLoaded])
+  }, [result, hasInitiallyLoaded])
 
   const handleRefetch = () => {
     setIsRefetching(true)
@@ -118,7 +124,11 @@ export default function TableWrapper (props) {
         skip: 0
       })
     } else {
-      handleRefetch()
+      setVariables({
+        ...variables,
+        where: additionalWhere,
+        skip: 0
+      })
     }
   }
 
@@ -127,7 +137,10 @@ export default function TableWrapper (props) {
     if (orderBy) {
       setVariables({
         ...variables,
-        orderBy,
+        orderBy: [
+          ...orderBy,
+          ...defaultOrderBy
+        ],
         skip: 0
       })
     } else {
@@ -170,10 +183,11 @@ export default function TableWrapper (props) {
       setSearchValue={setSearchValue}
       handleSearch={handleSearch}
       refetch={handleRefetch}
-      isRefetching={isRefetching}
-      hasMoreItems={hasMoreItems}
       fetchMore={handleFetchMore}
+      hasMoreItems={hasMoreItems}
+      isRefetching={isRefetching}
       isFetchingMore={isFetchingMore}
+      isFiltering={isFiltering}
       orderBy={variables.orderBy}
       handleOrderBy={handleOrderBy}
       createComponent={CreateNewComponent}

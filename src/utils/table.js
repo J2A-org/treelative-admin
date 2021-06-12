@@ -8,7 +8,7 @@ export const generateGridTemplateColumns = fields => {
   })
 }
 
-const TAKE_LIMIT = 20
+const TAKE_LIMIT = 5
 
 export {
   TAKE_LIMIT

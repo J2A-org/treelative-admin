@@ -25,7 +25,7 @@ export default function EditUserFullName ({ user, inline = false, ...props }) {
       validation={string().required()}
       loading={fetching}
       error={error}
-      notification='Successfully updated the user full name'
+      notification='Successfully updated the full name'
       {...props}
     />
   )

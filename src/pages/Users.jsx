@@ -35,7 +35,7 @@ export default function Users () {
       rowKey='id'
       rowType='user'
       buildSearch={buildSearch}
-      defaultOrderBy={[{ fullName: 'asc' }]}
+      defaultOrderBy={[{ fullName: 'asc' }, { createdAt: 'asc' }]}
       createComponent={CreateUser}
     />
   )

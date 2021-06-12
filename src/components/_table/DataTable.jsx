@@ -40,6 +40,7 @@ export default function DataTable (props) {
     hasMoreItems,
     fetchMore,
     isFetchingMore,
+    isFiltering,
     orderBy = [],
     handleOrderBy,
     createComponent: CreateRecord,
@@ -68,7 +69,7 @@ export default function DataTable (props) {
               setSearchValue={setSearchValue}
               handleSearch={handleSearch}
               refetch={refetch}
-              isRefetching={isRefetching}
+              isRefetching={isRefetching || isFiltering}
             />
           </Flex>
         </Flex>

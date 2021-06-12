@@ -25,7 +25,7 @@ export default function EditUserEmail ({ user, inline = false, ...props }) {
       validation={string().email().required()}
       loading={fetching}
       error={error}
-      notification='Successfully updated the user email'
+      notification='Successfully updated the email'
       {...props}
     />
   )
