@@ -9,11 +9,11 @@ import {
   Input,
   Stack,
   Button,
-  useToast,
   FormLabel,
   FormControl,
   useDisclosure,
-  FormErrorMessage
+  FormErrorMessage,
+  createStandaloneToast
 } from '@chakra-ui/react'
 
 import { FaPlus } from 'react-icons/fa'
@@ -27,6 +27,8 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { object, string } from 'yup'
 
+const toast = createStandaloneToast()
+
 const schemaValidation = object().shape({
   username: string().required(),
   password: string().required().min(3),
@@ -37,8 +39,6 @@ const schemaValidation = object().shape({
 })
 
 export default function CreateUser ({ onCreateComplete }) {
-  const toast = useToast()
-
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const handleClose = () => {

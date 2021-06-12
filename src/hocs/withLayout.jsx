@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
-import { useClient } from 'urql'
+import { useQuery } from 'urql'
+
 import { WHO_AM_I } from 'graphql/queries/auth'
 
 import Loading from 'components/_common/Loading'
@@ -17,8 +18,6 @@ const logout = () => {
 }
 
 const withLayout = (WrappedComponent) => () => {
-  const client = useClient()
-
   const [authUser, setAuthUser] = useState()
 
   const {
@@ -29,28 +28,27 @@ const withLayout = (WrappedComponent) => () => {
 
   const [loading, setLoading] = useState(!isPublic)
 
+  const [result] = useQuery({ query: WHO_AM_I, pause: isPublic })
+
+  useEffect(() => {
+    // set document title
+    window.document.title = title
+  }, [])
+
   useEffect(() => {
     // set document title
     window.document.title = title
     // check for auth session if not public route
-    if (!isPublic) {
-      client
-        .query(WHO_AM_I)
-        .toPromise()
-        .then(({ data, error }) => {
-          setAuthUser(data.whoAmI)
-          if (error) {
-            logout()
-          }
-        })
-        .catch(() => {
-          logout()
-        })
-        .finally(() => {
-          setLoading(false)
-        })
+    if (!result.fetching) {
+      if (result.error) {
+        logout()
+      }
+      if (result.data) {
+        setAuthUser(result.data.whoAmI)
+      }
+      setLoading(false)
     }
-  }, [])
+  }, [result])
 
   // no need to perform any additional checks for public route
   if (isPublic) {

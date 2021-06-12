@@ -57,6 +57,18 @@ export default function TableWrapper (props) {
     }
   }, [result.fetching, hasInitiallyLoaded])
 
+  // on cache changes
+  useEffect(() => {
+    if (hasInitiallyLoaded) {
+      if (!result.fetching && result?.data?.allData) {
+        setAllData(result.data.allData)
+        setHasMoreItems(result.data.allData.length >= TAKE_LIMIT)
+        setFilteredCount(result?.data?.filteredCount)
+        setTotalCount(result?.data?.allCount)
+      }
+    }
+  }, [result.data, hasInitiallyLoaded])
+
   // on load more
   useEffect(() => {
     if (hasInitiallyLoaded) {

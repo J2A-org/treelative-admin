@@ -13,8 +13,15 @@ const buildSearch = (search, isEmbedded = false) => {
   // const isBigInt = isNumber && search > 294967295
 
   const OR = []
-  OR.push({ email: { contains: search, mode: 'insensitive' } })
+  OR.push({ username: { contains: search, mode: 'insensitive' } })
   OR.push({ fullName: { contains: search, mode: 'insensitive' } })
+  OR.push({ shortName: { contains: search, mode: 'insensitive' } })
+  OR.push({ email: { contains: search, mode: 'insensitive' } })
+  OR.push({ phoneNumber: { contains: search, mode: 'insensitive' } })
+  OR.push({ currentLocation: { path: ['description'], string_contains: search } })
+  OR.push({ birthLocation: { path: ['description'], string_contains: search } })
+  OR.push({ deathLocation: { path: ['description'], string_contains: search } })
+
   if (['ADMIN', 'USER'].includes(search.toUpperCase())) OR.push({ role: { equals: search.toUpperCase() } })
 
   return OR
