@@ -41,7 +41,7 @@ export default forwardRef((props, ref) => {
         autoComplete='current-password'
         required
       />
-      <InputRightElement mt='1' mr='1'>
+      <InputRightElement mt={props.size === 'lg' ? '1' : '0'} mr='1'>
         <IconButton
           bg='transparent !important'
           variant='ghost'

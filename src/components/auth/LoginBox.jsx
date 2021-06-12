@@ -17,7 +17,7 @@ import { object, string } from 'yup'
 import { useMutation } from 'urql'
 import { LOGIN } from 'graphql/mutations/auth'
 
-import PasswordInput from 'components/_inputs/PasswordInput'
+import PasswordInput from 'components/_input/PasswordInput'
 import ErrorAlert from 'components/_common/ErrorAlert'
 import ErrorDialog from 'components/_common/ErrorDialog'
 

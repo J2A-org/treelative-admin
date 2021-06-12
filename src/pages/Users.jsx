@@ -6,6 +6,8 @@ import { QUERY_USER } from 'graphql/queries/users'
 
 import fields from 'components/users/fields'
 
+import CreateUser from 'components/users/CreateUser'
+
 const buildSearch = (search, isEmbedded = false) => {
   // const isNumber = !isNaN(search)
   // const isBigInt = isNumber && search > 294967295
@@ -27,8 +29,7 @@ export default function Users () {
       rowType='user'
       buildSearch={buildSearch}
       defaultOrderBy={[{ fullName: 'asc' }]}
-      // createComponent={CreateUser}
-      // selectionVar={selectedUsersVar}
+      createComponent={CreateUser}
     />
   )
 }
