@@ -19,6 +19,7 @@ export default function TableWrapper (props) {
     buildSearch,
     additionalWhere = {},
     defaultOrderBy = [],
+    additionalOrderBy = [],
     createComponent: CreateNew = null,
     isEmbedded = false
   } = props
@@ -27,7 +28,7 @@ export default function TableWrapper (props) {
     take: TAKE_LIMIT,
     skip: 0,
     where: additionalWhere,
-    orderBy: defaultOrderBy
+    orderBy: [...defaultOrderBy, ...additionalOrderBy]
   })
 
   const [searchValue, setSearchValue] = useState('')
@@ -139,14 +140,14 @@ export default function TableWrapper (props) {
         ...variables,
         orderBy: [
           ...orderBy,
-          ...defaultOrderBy
+          ...additionalOrderBy
         ],
         skip: 0
       })
     } else {
       setVariables({
         ...variables,
-        orderBy: defaultOrderBy,
+        orderBy: additionalOrderBy,
         skip: 0
       })
     }
