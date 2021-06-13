@@ -7,9 +7,9 @@ export const QUERY_USER = gql`
       username
       fullName
       email
-      role
-      createdAt
-      updatedAt
+      phoneNumber
+      dateOfBirth
+      currentLocation
     }
     filteredCount: countUser (where: $where)
     allCount: countUser

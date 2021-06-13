@@ -18,7 +18,7 @@ export default function EditUserEmail ({ user, inline = false, ...props }) {
   return (
     <EditableInputDialog
       inline={inline}
-      title='Edit email'
+      title='Edit Email'
       name='email'
       value={user.email || ''}
       onSubmit={handleSubmit}

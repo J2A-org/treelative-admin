@@ -33,7 +33,7 @@ export default function TableWrapper (props) {
 
   const [searchValue, setSearchValue] = useState('')
 
-  const [result, refetchQuery] = useQuery({ query, variables })
+  const [result, refetchQuery] = useQuery({ query, variables, requestPolicy: 'cache-and-network' })
 
   const [hasInitiallyLoaded, setHasInitiallyLoaded] = useState(false)
   const [isRefetching, setIsRefetching] = useState(false)
@@ -91,7 +91,11 @@ export default function TableWrapper (props) {
   useEffect(() => {
     if (hasInitiallyLoaded) {
       if (!result.fetching && isRefetching && result?.data?.allData) {
-        setAllData([...allData.slice(0, allData.length - result.data.allData.length), ...result.data.allData])
+        // setAllData([...allData.slice(0, allData.length - result.data.allData.length), ...result.data.allData])
+        setAllData(result?.data?.allData)
+        setHasMoreItems(result.data.allData.length >= TAKE_LIMIT)
+        setFilteredCount(result?.data?.filteredCount)
+        setTotalCount(result?.data?.allCount)
         turnOffAllLoading()
       }
     }
@@ -110,7 +114,7 @@ export default function TableWrapper (props) {
 
   const handleRefetch = () => {
     setIsRefetching(true)
-    refetchQuery({ requestPolicy: 'network-only' })
+    return refetchQuery({ requestPolicy: 'network-only' })
   }
 
   const handleSearch = (fuzzySearch) => {
@@ -161,13 +165,7 @@ export default function TableWrapper (props) {
     })
   }
 
-  const onCreateComplete = (newData) => {
-    setAllData([newData, ...allData])
-    setFilteredCount(filteredCount + 1)
-    setTotalCount(totalCount + 1)
-  }
-
-  const CreateNewComponent = CreateNew ? useMemo(() => <CreateNew {...props} onCreateComplete={onCreateComplete} />, [allData.length]) : null
+  const CreateNewComponent = CreateNew ? useMemo(() => <CreateNew {...props} refetch={handleRefetch} />, [allData.length]) : null
 
   if (result.error) return <ErrorDialog>{result.error.message}</ErrorDialog>
 

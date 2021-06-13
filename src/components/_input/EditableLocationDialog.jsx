@@ -1,27 +1,20 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import useDevice from 'hooks/useDevice'
 
 import {
   Text,
   Stack,
-  Input,
-  Textarea,
   IconButton,
-  InputGroup,
-  FormControl,
+  AspectRatio,
   useDisclosure,
-  InputLeftAddon,
   createStandaloneToast
 } from '@chakra-ui/react'
 
 import { BiEdit } from 'react-icons/bi'
 
 import FormDialog from 'components/_common/FormDialog'
-
-import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { object } from 'yup'
+import GooglePlacesSelect from 'components/_select/GooglePlacesSelect'
 
 const toast = createStandaloneToast()
 
@@ -65,7 +58,7 @@ export default function InputDialogTrigger (props) {
           ml={marginOffset}
           {...touchDeviceProps}
         >
-          {inputProps.value || '-'}
+          {inputProps?.value?.description || '-'}
         </Text>
         {isVisible && (
           <IconButton
@@ -84,41 +77,29 @@ export default function InputDialogTrigger (props) {
 function InputDialog (props) {
   const {
     onClose,
-    type = 'text',
-    name = 'inputFieldName',
     value = '',
     title = '',
-    placeholder = 'Type here ...',
     onSubmit = console.log,
-    validation,
     loading,
     error,
-    rows = 10,
-    notification = '',
-    leftAddon
+    notification = ''
   } = props
 
-  const InputElement = type === 'textarea' ? Textarea : Input
+  const [location, setLocation] = useState({ label: value?.description, value })
+  const [locationURL, setLocationURL] = useState('')
 
-  const schemaValidation = object().shape({
-    [name]: validation
-  })
+  useEffect(() => {
+    if (location?.value) {
+      const key = import.meta.env.SNOWPACK_PUBLIC_GOOGLE_LOCATION_API_KEY
+      const q = `place_id:${location.value.place_id}`
+      const zoom = '14'
+      setLocationURL(`https://www.google.com/maps/embed/v1/place?key=${key}&q=${q}&zoom=${zoom}`)
+    }
+  }, [location?.value?.description])
 
-  const onCancel = () => {
-    reset()
-    onClose()
-  }
-
-  const { handleSubmit, formState: { errors }, register, reset, setFocus } = useForm({
-    defaultValues: { [name]: value },
-    resolver: yupResolver(schemaValidation)
-  })
-
-  useEffect(() => { setTimeout(() => setFocus(name), 1) }, [])
-
-  const handleOnSubmit = (form) => {
-    const submitData = type !== 'number' ? form[name].trim() : parseInt(form[name])
-    onSubmit(submitData)
+  const handleOnSubmit = (e) => {
+    e.preventDefault()
+    onSubmit(location.value)
       .then(result => {
         if (result.data) {
           if (notification) {
@@ -141,23 +122,26 @@ function InputDialog (props) {
       closeOnOverlayClick
       title={title}
       submitLabel='Submit'
-      error={error || errors[name]}
+      error={error}
       loading={loading}
-      onClose={onCancel}
-      onSubmit={handleSubmit(handleOnSubmit)}
+      onClose={onClose}
+      onSubmit={handleOnSubmit}
+      size='xl'
     >
-      <FormControl isInvalid={errors[name] || Boolean(error)}>
-        <InputGroup>
-          {leftAddon && <InputLeftAddon> {leftAddon} </InputLeftAddon>}
-          <InputElement
-            {...register(name)}
-            type={type}
-            placeholder={placeholder}
-            rows={rows}
+      <Stack spacing='8' minH='300px'>
+        <GooglePlacesSelect
+          autoFocus
+          value={location}
+          onChange={setLocation}
+        />
+        <AspectRatio ratio={16 / 9}>
+          <iframe
+            src={locationURL}
+            loading='lazy'
+            alt={location.label}
           />
-        </InputGroup>
-
-      </FormControl>
+        </AspectRatio>
+      </Stack>
     </FormDialog>
   )
 }

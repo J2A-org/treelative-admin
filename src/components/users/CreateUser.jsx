@@ -38,7 +38,7 @@ const schemaValidation = object().shape({
   shortName: string().required()
 })
 
-export default function CreateUser ({ onCreateComplete }) {
+export default function CreateUser ({ refetch }) {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const handleClose = () => {
@@ -65,9 +65,9 @@ export default function CreateUser ({ onCreateComplete }) {
       currentLocation: currentLocation?.value
     }
     createUser({ input })
-      .then(result => {
+      .then(async result => {
         if (result.data) {
-          onCreateComplete(result.data.addUser)
+          await refetch()
           toast({
             title: 'Successfully created the user',
             status: 'success',
@@ -115,7 +115,7 @@ export default function CreateUser ({ onCreateComplete }) {
                 <Input {...register('email')} type='email' />
                 <FormErrorMessage>{errors?.email?.message}</FormErrorMessage>
               </FormControl>
-              <FormControl isRequired isInvalid={errors?.phoneNumber}>
+              <FormControl isInvalid={errors?.phoneNumber}>
                 <FormLabel>Phone Number</FormLabel>
                 <Input {...register('phoneNumber')} />
                 <FormErrorMessage>

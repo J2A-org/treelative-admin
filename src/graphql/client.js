@@ -1,11 +1,19 @@
-import { createClient, dedupExchange, fetchExchange } from 'urql'
+import {
+  createClient,
+  dedupExchange,
+  fetchExchange
+} from 'urql'
 import { cacheExchange } from '@urql/exchange-graphcache'
 
 import { devtoolsExchange } from '@urql/devtools'
 
+const cache = cacheExchange({
+
+})
+
 export default createClient({
   url: import.meta.env.SNOWPACK_PUBLIC_GRAPHQL_URL,
-  exchanges: [devtoolsExchange, dedupExchange, cacheExchange({}), fetchExchange],
+  exchanges: [devtoolsExchange, dedupExchange, cache, fetchExchange],
   fetchOptions: () => {
     const AUTH_SESSION_ID = window.localStorage.getItem('AUTH_SESSION_ID') || null
     return {

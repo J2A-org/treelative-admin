@@ -8,6 +8,8 @@ import fields from 'components/users/fields'
 
 import CreateUser from 'components/users/CreateUser'
 
+import { startCase } from 'lodash'
+
 const buildSearch = (search, isEmbedded = false) => {
   // const isNumber = !isNaN(search)
   // const isBigInt = isNumber && search > 294967295
@@ -18,9 +20,9 @@ const buildSearch = (search, isEmbedded = false) => {
   OR.push({ shortName: { contains: search, mode: 'insensitive' } })
   OR.push({ email: { contains: search, mode: 'insensitive' } })
   OR.push({ phoneNumber: { contains: search, mode: 'insensitive' } })
-  OR.push({ currentLocation: { path: ['description'], string_contains: search } })
-  OR.push({ birthLocation: { path: ['description'], string_contains: search } })
-  OR.push({ deathLocation: { path: ['description'], string_contains: search } })
+  OR.push({ currentLocation: { path: ['description'], string_contains: startCase(search) } })
+  OR.push({ birthLocation: { path: ['description'], string_contains: startCase(search) } })
+  OR.push({ deathLocation: { path: ['description'], string_contains: startCase(search) } })
 
   if (['ADMIN', 'USER'].includes(search.toUpperCase())) OR.push({ role: { equals: search.toUpperCase() } })
 
