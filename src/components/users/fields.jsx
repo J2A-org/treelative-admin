@@ -9,6 +9,8 @@ import EditUserPhoneNumber from 'components/users/edit/EditUserPhoneNumber'
 import EditUserDateOfBirth from 'components/users/edit/EditUserDateOfBirth'
 import EditUserCurrentLocation from 'components/users/edit/EditUserCurrentLocation'
 
+import EditUserPartner from 'components/users/edit/EditUserPartner'
+
 const fields = [
   {
     key: 'view',
@@ -55,6 +57,11 @@ const fields = [
     label: 'Current Location',
     canSort: true,
     renderTD: EditUserCurrentLocation
+  },
+  {
+    key: 'partner',
+    label: 'Partner',
+    renderTD: EditUserPartner
   }
 ]
 
