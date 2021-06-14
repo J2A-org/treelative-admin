@@ -22,6 +22,7 @@ export default function EditUserDateOfBirth ({ user, inline = false }) {
       onChange={handleSubmit}
       error={error}
       loading={fetching}
+      notification='Successfully updated the date of birth'
     />
   )
 }

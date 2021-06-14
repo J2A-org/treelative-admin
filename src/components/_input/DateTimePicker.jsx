@@ -21,7 +21,8 @@ import {
   ModalOverlay,
   ModalContent,
   useDisclosure,
-  ModalCloseButton
+  ModalCloseButton,
+  createStandaloneToast
 } from '@chakra-ui/react'
 
 import { BiCalendarEdit } from 'react-icons/bi'
@@ -36,6 +37,8 @@ import Loading from 'components/_common/Loading'
 import 'react-datepicker/dist/react-datepicker.css'
 import './datetimePicker.css'
 
+const toast = createStandaloneToast()
+
 export default function DateTimePickerDialogTrigger (props) {
   const {
     reset,
@@ -46,6 +49,7 @@ export default function DateTimePickerDialogTrigger (props) {
     fontSize = 'sm',
     textAlign = 'left',
     noSubmit = false,
+    notification = '',
     ...rest
   } = props
 
@@ -64,8 +68,22 @@ export default function DateTimePickerDialogTrigger (props) {
 
   const handleOnSubmit = async (newValue) => {
     try {
-      await onChange(rest.type === 'time' ? newValue.toISOString() : noSubmit ? newValue.toLocaleDateString('en-CA') : newValue.toLocaleDateString('en-CA') + 'T04:00:00.000Z')
-      onClose()
+      onChange(rest.type === 'time' ? newValue.toISOString() : noSubmit ? newValue.toLocaleDateString('en-CA') : newValue.toLocaleDateString('en-CA') + 'T04:00:00.000Z')
+        .then(result => {
+          if (result.data) {
+            if (notification) {
+              toast({
+                title: notification,
+                status: 'success',
+                position: 'top',
+                duration: 3000,
+                isClosable: true
+              })
+            }
+            onClose()
+          }
+        })
+        .catch(console.log)
     } catch (e) {
       console.log(e.message)
     }
