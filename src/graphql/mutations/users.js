@@ -61,3 +61,23 @@ export const UPDATE_USER_CURRENT_LOCATION = gql`
     }
   }
 `
+
+export const ADD_USER_PARTNER = gql`
+  mutation ADD_USER_PARTNER ($user: UserUniqueFilter! $partner: UserUniqueFilter!) {
+    addUserPartner(user: $user partner: $partner) {
+      id
+      couple {
+        id
+        partner {
+          id
+          couple {
+            id
+            partner {
+              id
+            }
+          }
+        }
+      }
+    }
+  }
+`
