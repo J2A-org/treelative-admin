@@ -11,7 +11,7 @@ export default function EditUserPhoneNumber ({ user, inline = false, ...props })
   const [{ error, fetching }, updateUserPhoneNumber] = useMutation(UPDATE_USER_PHONE_NUMBER)
 
   const handleSubmit = phoneNumber => {
-    const variables = { user: { id: user.id }, input: { phoneNumber } }
+    const variables = { userID: user.id, input: { phoneNumber } }
     return updateUserPhoneNumber(variables)
   }
 

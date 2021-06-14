@@ -9,7 +9,7 @@ export default function EditUserDateOfBirth ({ user, inline = false }) {
   const [{ error, fetching }, updateUserDateOfBirth] = useMutation(UPDATE_USER_DATE_OF_BIRTH)
 
   const handleSubmit = dateOfBirth => {
-    const variables = { user: { id: user.id }, input: { dateOfBirth } }
+    const variables = { userID: user.id, input: { dateOfBirth } }
     return updateUserDateOfBirth(variables)
   }
 

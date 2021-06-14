@@ -23,9 +23,18 @@ export const QUERY_USER = gql`
   }
 `
 
-export const SELECT_USER = gql`
-  query SELECT_USER ($search: String!) {
+export const LIST_USERS = gql`
+  query LIST_USERS ($search: String!) {
     users: queryUser (where: { fullName: { startsWith: $search mode: "insensitive" } } orderBy: { fullName: asc } take: 5) {
+      id
+      fullName
+    }
+  }
+`
+
+export const LIST_USER_PARTNERS = gql`
+  query LIST_USER_PARTNERS ($userID: String! $search: String!) {
+    users: getUserAvailablePartners (userID: $userID where: { fullName: { startsWith: $search mode: "insensitive" } } orderBy: { fullName: asc } take: 5) {
       id
       fullName
     }

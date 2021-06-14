@@ -9,7 +9,7 @@ export default function EditUserCurrentLocation ({ user, inline = false, ...prop
   const [{ error, fetching }, updateUserCurrentLocation] = useMutation(UPDATE_USER_CURRENT_LOCATION)
 
   const handleSubmit = currentLocation => {
-    const variables = { user: { id: user.id }, input: { currentLocation } }
+    const variables = { userID: user.id, input: { currentLocation } }
     return updateUserCurrentLocation(variables)
   }
 

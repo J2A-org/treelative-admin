@@ -3,7 +3,9 @@ import React from 'react'
 import UserSelection from 'components/users/UserSelection'
 
 import { useMutation } from 'urql'
-import { ADD_USER_PARTNER } from 'graphql/mutations/users'
+import { ADD_COUPLE, DELETE_COUPLE } from 'graphql/mutations/couples'
+
+import { LIST_USER_PARTNERS } from 'graphql/queries/users'
 
 import Loading from 'components/_common/Loading'
 import ErrorAlert from 'components/_common/ErrorAlert'
@@ -18,7 +20,8 @@ import {
   ModalContent,
   useDisclosure,
   ModalCloseButton,
-  createStandaloneToast
+  createStandaloneToast,
+  ModalFooter
 } from '@chakra-ui/react'
 
 const toast = createStandaloneToast()
@@ -28,11 +31,11 @@ export default function EditUserPartner ({ inline = false, ...props }) {
 }
 
 function EditUserPartnerInline ({ user, onComplete }) {
-  const [result, addUserPartner] = useMutation(ADD_USER_PARTNER)
+  const [result, addCouple] = useMutation(ADD_COUPLE)
 
   const handleOnChange = userPartner => {
-    const variables = { user: { id: user.id }, partner: { id: userPartner.value } }
-    addUserPartner(variables)
+    const variables = { input: { userOneID: user.id, userTwoID: userPartner.value } }
+    addCouple(variables)
       .then(result => {
         if (result.data && onComplete) {
           toast({
@@ -51,6 +54,8 @@ function EditUserPartnerInline ({ user, onComplete }) {
     <Stack spacing='4'>
       <UserSelection
         autoFocus
+        query={LIST_USER_PARTNERS}
+        variables={{ userID: user.id }}
         value={user?.couple?.partner?.id ? { label: user?.couple?.partner?.fullName, value: user?.couple?.partner?.id } : undefined}
         onChange={handleOnChange}
         placeholder='Select a Partner'
@@ -75,15 +80,49 @@ function EditUserPartnerTrigger ({ user }) {
 }
 
 export function EditUserPartnerDialog ({ user, onClose }) {
+  const [result, deleteCouple] = useMutation(DELETE_COUPLE)
+
+  const handleRemovePartner = () => {
+    const variables = { coupleID: user.couple.id }
+    deleteCouple(variables)
+      .then(result => {
+        if (result.data) {
+          toast({
+            title: 'Successfully removed the partner',
+            status: 'success',
+            position: 'top',
+            duration: 3000,
+            isClosable: true
+          })
+          onClose()
+        }
+      })
+  }
+
   return (
     <Modal isOpen onClose={onClose} size='md' scrollBehavior='inside'>
       <ModalOverlay />
-      <ModalContent pb='6' minH='300px'>
+      <ModalContent pb='2' minH='300px'>
         <ModalHeader>Edit User Partner</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <EditUserPartnerInline user={user} onComplete={onClose} />
         </ModalBody>
+        {user?.couple?.partner?.id && (
+          <ModalFooter>
+            <Stack width='100%'>
+              {result.error && <ErrorAlert> {result.error.message} </ErrorAlert>}
+              <Button
+                isFullWidth
+                colorScheme='red'
+                isLoading={result.fetching}
+                onClick={handleRemovePartner}
+              >
+                Remove Partner
+              </Button>
+            </Stack>
+          </ModalFooter>
+        )}
       </ModalContent>
     </Modal>
   )

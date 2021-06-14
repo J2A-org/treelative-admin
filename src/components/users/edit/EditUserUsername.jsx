@@ -11,7 +11,7 @@ export default function EditUserUsername ({ user, inline = false, ...props }) {
   const [{ error, fetching }, updateUserUsername] = useMutation(UPDATE_USER_EMAIL)
 
   const handleSubmit = username => {
-    const variables = { user: { id: user.id }, input: { username } }
+    const variables = { userID: user.id, input: { username } }
     return updateUserUsername(variables)
   }
 
