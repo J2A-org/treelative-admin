@@ -90,7 +90,7 @@ function InputDialog (props) {
 
   useEffect(() => {
     if (location?.value) {
-      const key = import.meta.env.SNOWPACK_PUBLIC_GOOGLE_LOCATION_API_KEY
+      const key = process.env.REACT_APP_GOOGLE_LOCATION_API_KEY
       const q = `place_id:${location.value.place_id}`
       const zoom = '14'
       setLocationURL(`https://www.google.com/maps/embed/v1/place?key=${key}&q=${q}&zoom=${zoom}`)

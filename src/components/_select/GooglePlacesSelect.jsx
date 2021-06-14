@@ -9,7 +9,7 @@ export default function GooglePlacesSelect (props) {
 
   return (
     <GooglePlacesAutocomplete
-      apiKey={import.meta.env.SNOWPACK_PUBLIC_GOOGLE_LOCATION_API_KEY}
+      apiKey={process.env.REACT_APP_GOOGLE_LOCATION_API_KEY}
       selectProps={{ ...props, styles }}
     />
   )

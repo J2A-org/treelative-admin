@@ -3,7 +3,6 @@ import React from 'react'
 import UserSelection from 'components/users/UserSelection'
 
 import {
-  Text,
   Modal,
   Button,
   ModalBody,
@@ -20,10 +19,14 @@ export default function EditUserPartner ({ inline = false, ...props }) {
 }
 
 function EditUserPartnerInline ({ user }) {
+  const handleOnChange = (user) => {
+    console.log(user)
+  }
+
   return (
     <UserSelection
-      // value,
-      onChange={console.log}
+      value={user?.partner?.id ? { label: user?.partner?.fullName, value: user?.partner?.id } : undefined}
+      onChange={handleOnChange}
       placeholder='Select a Partner'
     />
   )

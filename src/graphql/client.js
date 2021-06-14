@@ -12,7 +12,7 @@ const cache = cacheExchange({
 })
 
 export default createClient({
-  url: import.meta.env.SNOWPACK_PUBLIC_GRAPHQL_URL,
+  url: process.env.REACT_APP_GRAPHQL_URL,
   exchanges: [devtoolsExchange, dedupExchange, cache, fetchExchange],
   fetchOptions: () => {
     const AUTH_SESSION_ID = window.localStorage.getItem('AUTH_SESSION_ID') || null

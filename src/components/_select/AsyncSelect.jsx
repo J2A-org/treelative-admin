@@ -9,7 +9,6 @@ const CustomSelect = forwardRef((props, ref) => {
 
   return (
     <AsyncSelect
-      cacheOptions
       ref={ref}
       styles={styles}
       maxMenuHeight='200px'

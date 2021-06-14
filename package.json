@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "start": "snowpack dev",
-    "build": "snowpack build"
+    "start": "PORT=7001 react-scripts start",
+    "build": "react-scripts build"
   },
   "dependencies": {
     "@chakra-ui/react": "1.6.3",
@@ -18,14 +18,24 @@
     "react-google-places-autocomplete": "3.3.1",
     "react-hook-form": "7.8.4",
     "react-icons": "4.2.0",
+    "react-scripts": "4.0.3",
     "react-select": "4.3.1",
     "urql": "2.0.3",
     "yup": "0.32.9"
   },
   "devDependencies": {
-    "@snowpack/plugin-dotenv": "2.1.0",
-    "@snowpack/plugin-react-refresh": "2.5.0",
-    "snowpack": "3.5.7",
     "standard": "16.0.3"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
