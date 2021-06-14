@@ -12,6 +12,8 @@ export const QUERY_USER = gql`
       currentLocation
       couple {
         id
+        dateOfMarriage
+        marriageLocation
         partner {
           id
           fullName

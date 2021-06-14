@@ -24,20 +24,23 @@ import {
   ModalFooter
 } from '@chakra-ui/react'
 
+import EditCoupleDateOfMarriage from 'components/couples/edit/EditCoupleDateOfMarriage'
+import EditCoupleMarriageLocation from 'components/couples/edit/EditCoupleMarriageLocation'
+
 const toast = createStandaloneToast()
 
 export default function EditUserPartner ({ inline = false, ...props }) {
   return inline ? <EditUserPartnerInline {...props} /> : <EditUserPartnerTrigger {...props} />
 }
 
-function EditUserPartnerInline ({ user, onComplete }) {
+function EditUserPartnerInline ({ user }) {
   const [result, addCouple] = useMutation(ADD_COUPLE)
 
   const handleOnChange = userPartner => {
     const variables = { input: { userOneID: user.id, userTwoID: userPartner.value } }
     addCouple(variables)
       .then(result => {
-        if (result.data && onComplete) {
+        if (result.data) {
           toast({
             title: 'Successfully updated the partner',
             status: 'success',
@@ -45,13 +48,12 @@ function EditUserPartnerInline ({ user, onComplete }) {
             duration: 3000,
             isClosable: true
           })
-          onComplete()
         }
       })
   }
 
   return (
-    <Stack spacing='4'>
+    <Stack spacing='8'>
       <UserSelection
         autoFocus
         query={LIST_USER_PARTNERS}
@@ -62,6 +64,12 @@ function EditUserPartnerInline ({ user, onComplete }) {
       />
       {result.fetching && <Loading />}
       {result.error && <ErrorAlert> {result.error.message} </ErrorAlert>}
+      {user?.couple && (
+        <>
+          <EditCoupleDateOfMarriage inline couple={user?.couple} />
+          <EditCoupleMarriageLocation inline couple={user?.couple} />
+        </>
+      )}
     </Stack>
   )
 }
@@ -105,8 +113,8 @@ export function EditUserPartnerDialog ({ user, onClose }) {
       <ModalContent pb='2' minH='300px'>
         <ModalHeader>Edit User Partner</ModalHeader>
         <ModalCloseButton />
-        <ModalBody>
-          <EditUserPartnerInline user={user} onComplete={onClose} />
+        <ModalBody pb='4'>
+          <EditUserPartnerInline user={user} />
         </ModalBody>
         {user?.couple?.partner?.id && (
           <ModalFooter>

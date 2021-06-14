@@ -31,6 +31,8 @@ import ReactDatePicker from 'react-datepicker'
 import DateTimeRenderer from 'components/_common/DateTimeRenderer'
 import CustomSelect from 'components/_select/CustomSelect'
 
+import Loading from 'components/_common/Loading'
+
 import 'react-datepicker/dist/react-datepicker.css'
 import './datetimePicker.css'
 
@@ -138,6 +140,7 @@ function DateTimePickerDialog (props) {
               renderCustomHeader={CustomHeader}
               {...rest}
             />
+            {loading && <Loading />}
           </Stack>
         </ModalBody>
         <ModalFooter>
