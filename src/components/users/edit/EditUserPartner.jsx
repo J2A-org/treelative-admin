@@ -6,7 +6,6 @@ import {
   Modal,
   Button,
   ModalBody,
-  ButtonGroup,
   ModalHeader,
   ModalOverlay,
   ModalContent,
@@ -25,7 +24,8 @@ function EditUserPartnerInline ({ user }) {
 
   return (
     <UserSelection
-      value={user?.partner?.id ? { label: user?.partner?.fullName, value: user?.partner?.id } : undefined}
+      autoFocus
+      value={user?.couple?.partner?.id ? { label: user?.couple?.partner?.fullName, value: user?.couple?.partner?.id } : undefined}
       onChange={handleOnChange}
       placeholder='Select a Partner'
     />
@@ -38,11 +38,9 @@ function EditUserPartnerTrigger ({ user }) {
   return (
     <>
       {isOpen && <EditUserPartnerDialog user={user} onClose={onClose} />}
-      <ButtonGroup isAttached variant='outline'>
-        <Button mr='-px' onClick={onOpen} size='xs' variant='outline'>
-          {user?.partner?.user?.fullName || '-'}
-        </Button>
-      </ButtonGroup>
+      <Button isFullWidth mr='-px' onClick={onOpen} size='xs' variant='outline'>
+        {user?.couple?.partner?.fullName || '+'}
+      </Button>
     </>
   )
 }

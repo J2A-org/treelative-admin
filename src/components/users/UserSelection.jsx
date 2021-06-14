@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 import AsyncSelect from 'components/_select/AsyncSelect'
 
@@ -10,9 +10,8 @@ import ErrorAlert from 'components/_common/ErrorAlert'
 
 export default function UserSelection (props) {
   const {
-    value,
-    onChange,
-    placeholder = 'Select a User'
+    placeholder = 'Select a User',
+    ...rest
   } = props
 
   const [search, setSearch] = useState('')
@@ -23,10 +22,6 @@ export default function UserSelection (props) {
   })
 
   const users = result?.data?.users || []
-
-  useEffect(() => {
-    loadUsers('ja')
-  }, [])
 
   const transformUsers = (user) => ({ value: user.id, label: user.fullName })
 
@@ -49,10 +44,9 @@ export default function UserSelection (props) {
     <Stack spacing='4'>
       {result.error && <ErrorAlert> {result.error.message} </ErrorAlert>}
       <AsyncSelect
+        {...rest}
         placeholder={placeholder}
-        value={value}
         options={options}
-        onChange={onChange}
         loadOptions={loadUsers}
       />
     </Stack>

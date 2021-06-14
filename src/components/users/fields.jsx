@@ -61,6 +61,8 @@ const fields = [
   {
     key: 'partner',
     label: 'Partner',
+    width: '200px',
+    justifyContent: 'center',
     renderTD: EditUserPartner
   }
 ]

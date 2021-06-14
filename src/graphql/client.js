@@ -8,7 +8,9 @@ import { cacheExchange } from '@urql/exchange-graphcache'
 import { devtoolsExchange } from '@urql/devtools'
 
 const cache = cacheExchange({
-
+  keys: {
+    Couple: () => null
+  }
 })
 
 export default createClient({

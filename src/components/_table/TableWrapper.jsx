@@ -57,12 +57,12 @@ export default function TableWrapper (props) {
       if (!result.fetching && result?.data?.allData) {
         setAllData(result.data.allData)
         setHasMoreItems(result.data.allData.length >= TAKE_LIMIT)
-        setHasInitiallyLoaded(true)
         setFilteredCount(result?.data?.filteredCount)
         setTotalCount(result?.data?.allCount)
+        setHasInitiallyLoaded(true)
       }
     }
-  }, [result.fetching, hasInitiallyLoaded])
+  }, [result.data, hasInitiallyLoaded])
 
   // on cache changes
   useEffect(() => {
