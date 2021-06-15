@@ -11,6 +11,7 @@ import Loading from 'components/_common/Loading'
 import ErrorAlert from 'components/_common/ErrorAlert'
 
 import {
+  Text,
   Modal,
   Stack,
   Button,
@@ -111,7 +112,10 @@ export function EditUserPartnerDialog ({ user, onClose }) {
     <Modal isOpen onClose={onClose} size='sm' scrollBehavior='inside'>
       <ModalOverlay />
       <ModalContent pb='2' minH='300px'>
-        <ModalHeader>Edit User Partner</ModalHeader>
+        <ModalHeader>
+          Edit Partner
+          <Text fontSize='xs'>{user.fullName}</Text>
+        </ModalHeader>
         <ModalCloseButton />
         <ModalBody pb='4'>
           <EditUserPartnerInline user={user} />

@@ -10,6 +10,7 @@ import {
 } from 'date-fns'
 
 import {
+  Text,
   Modal,
   Stack,
   Alert,
@@ -133,6 +134,7 @@ function DateTimePickerDialog (props) {
     error,
     children,
     label,
+    subTitle = '',
     fontSize = 'xl',
     type = 'date',
     ...rest
@@ -142,7 +144,10 @@ function DateTimePickerDialog (props) {
     <Modal isOpen onClose={onClose} scrollBehavior='inside' size={type === 'date' ? 'sm' : 'lg'}>
       <ModalOverlay />
       <ModalContent pb={!children ? '0' : '6'}>
-        <ModalHeader>{title || label}</ModalHeader>
+        <ModalHeader>
+          {title || label}
+          <Text fontSize='xs'>{subTitle}</Text>
+        </ModalHeader>
         <ModalCloseButton isDisabled={loading} />
         <ModalBody textAlign='center'>
           <Stack spacing='2'>

@@ -88,6 +88,7 @@ function InputDialog (props) {
     name = 'inputFieldName',
     value = '',
     title = '',
+    subTitle = '',
     placeholder = 'Type here ...',
     onSubmit = console.log,
     validation,
@@ -140,6 +141,7 @@ function InputDialog (props) {
     <FormDialog
       closeOnOverlayClick
       title={title}
+      subTitle={subTitle}
       submitLabel='Submit'
       error={error || errors[name]}
       loading={loading}

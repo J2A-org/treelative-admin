@@ -19,6 +19,7 @@ export default function EditUserUsername ({ user, inline = false, ...props }) {
     <EditableInputDialog
       inline={inline}
       title='Edit Username'
+      subTitle={user.fullName}
       name='username'
       value={user.username || ''}
       onSubmit={handleSubmit}

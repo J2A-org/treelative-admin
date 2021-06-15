@@ -8,6 +8,10 @@ export const QUERY_USER = gql`
       fullName
       dateOfBirth
       currentLocation
+      parents {
+        id
+        fullName
+      }
       couple {
         id
         dateOfMarriage

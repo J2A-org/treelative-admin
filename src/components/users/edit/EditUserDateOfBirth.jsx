@@ -18,6 +18,7 @@ export default function EditUserDateOfBirth ({ user, inline = false }) {
       inline={inline}
       type='date'
       label='Edit Date of Birth'
+      subTitle={user.fullName}
       value={user.dateOfBirth}
       onChange={handleSubmit}
       error={error}

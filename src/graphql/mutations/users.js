@@ -17,6 +17,15 @@ export const UPDATE_USER_USERNAME = gql`
   }
 `
 
+export const UPDATE_USER_SHORT_NAME = gql`
+  mutation UPDATE_USER_SHORT_NAME ($userID: String! $input: UpdateUserInput!) {
+    updateUser(userID: $userID input: $input) {
+      id
+      shortName
+    }
+  }
+`
+
 export const UPDATE_USER_FULL_NAME = gql`
   mutation UPDATE_USER_FULL_NAME ($userID: String! $input: UpdateUserInput!) {
     updateUser(userID: $userID input: $input) {
@@ -58,6 +67,29 @@ export const UPDATE_USER_CURRENT_LOCATION = gql`
     updateUser(userID: $userID input: $input) {
       id
       currentLocation
+    }
+  }
+`
+
+export const ADD_USER_PARENT = gql`
+  mutation ADD_USER_PARENT ($userID: String! $parentID: String!) {
+    addUserParent(userID: $userID parentID: $parentID){
+      id
+      parents {
+        id
+        fullName
+      }
+    }
+  }
+`
+
+export const DELETE_USER_PARENT = gql`
+  mutation DELETE_USER_PARENT ($userID: String! $parentID: String!) {
+    deleteUserParent(userID: $userID parentID: $parentID){
+      id
+      parents {
+        id
+      }
     }
   }
 `

@@ -3,10 +3,12 @@ import React from 'react'
 import OpenUser from 'components/users/view/OpenUser'
 
 import EditUserUsername from 'components/users/edit/EditUserUsername'
+import EditUserShortName from 'components/users/edit/EditUserShortName'
 import EditUserFullName from 'components/users/edit/EditUserFullName'
 import EditUserDateOfBirth from 'components/users/edit/EditUserDateOfBirth'
 import EditUserCurrentLocation from 'components/users/edit/EditUserCurrentLocation'
 
+import EditUserParents from 'components/users/edit/EditUserParents'
 import EditUserPartner from 'components/users/edit/EditUserPartner'
 import ViewUserFamily from 'components/users/view/ViewUserFamily'
 
@@ -24,6 +26,13 @@ const fields = [
     renderTD: EditUserUsername
   },
   {
+    key: 'shortName',
+    label: 'Short Name',
+    canSort: true,
+    width: '150px',
+    renderTD: EditUserShortName
+  },
+  {
     key: 'fullName',
     label: 'Full Name',
     canSort: true,
@@ -36,6 +45,13 @@ const fields = [
     canSort: true,
     width: '200px',
     renderTD: EditUserDateOfBirth
+  },
+  {
+    key: 'parents',
+    label: 'Parents',
+    width: '220px',
+    justifyContent: 'center',
+    renderTD: EditUserParents
   },
   {
     key: 'partner',

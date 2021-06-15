@@ -1,6 +1,7 @@
 import React from 'react'
 
 import {
+  Text,
   Modal,
   Stack,
   Alert,
@@ -19,6 +20,7 @@ import ErrorAlert from 'components/_common/ErrorAlert'
 export default function FormDialog (props) {
   const {
     title = 'Form Title',
+    subTitle = '',
     formID = 'somethingUnique',
     submitLabel = 'Submit',
     error,
@@ -41,7 +43,10 @@ export default function FormDialog (props) {
     >
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>{title}</ModalHeader>
+        <ModalHeader>
+          {title}
+          <Text fontSize='xs'>{subTitle}</Text>
+        </ModalHeader>
         <ModalCloseButton isDisabled={loading} />
         <ModalBody as='form' id={formID} onSubmit={onSubmit}>
           {children}

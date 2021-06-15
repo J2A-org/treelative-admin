@@ -19,6 +19,7 @@ export default function EditUserPhoneNumber ({ user, inline = false, ...props })
     <EditableInputDialog
       inline={inline}
       title='Edit Phone Number'
+      subTitle={user.fullName}
       name='phoneNumber'
       type='tel'
       value={user.phoneNumber || ''}

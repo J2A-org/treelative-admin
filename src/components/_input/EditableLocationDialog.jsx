@@ -79,6 +79,7 @@ function InputDialog (props) {
     onClose,
     value = '',
     title = '',
+    subTitle = '',
     onSubmit = console.log,
     loading,
     error,
@@ -121,6 +122,7 @@ function InputDialog (props) {
     <FormDialog
       closeOnOverlayClick
       title={title}
+      subTitle={subTitle}
       submitLabel='Submit'
       error={error}
       loading={loading}

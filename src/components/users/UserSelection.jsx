@@ -15,18 +15,14 @@ export default function UserSelection (props) {
     query = LIST_USERS,
     variables = {},
     placeholder = 'Select a User',
-    value: defaultValue,
+    filterUsers = val => val,
     ...rest
   } = props
 
   const [error, setError] = useState()
 
-  const [result] = useQuery({
-    query,
-    variables: { ...variables, search: '' }
-  })
-
-  const users = result?.data?.users || []
+  // populate initial cache list
+  useQuery({ query, variables: { ...variables, search: '' } })
 
   const transformUsers = (user) => ({ value: user.id, label: user.fullName })
 
@@ -34,7 +30,7 @@ export default function UserSelection (props) {
     try {
       const result = await client.query(query, { ...variables, search }).toPromise()
       if (result.data) {
-        return result?.data?.users.map(transformUsers)
+        return result?.data?.users.map(transformUsers).filter(filterUsers)
       } else {
         if (result.error) {
           setError(result.error)
@@ -51,8 +47,6 @@ export default function UserSelection (props) {
       {error && <ErrorAlert> {error.message} </ErrorAlert>}
       <AsyncSelect
         {...rest}
-        options={users.map(transformUsers)}
-        defaultValue={defaultValue}
         placeholder={placeholder}
         loadOptions={loadUsers}
       />
