@@ -67,7 +67,7 @@ export default function CreateUser ({ refetch }) {
     createUser({ input })
       .then(async result => {
         if (result.data) {
-          await refetch()
+          refetch()
           toast({
             title: 'Successfully created the user',
             status: 'success',

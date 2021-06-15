@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import {
   Stack,
@@ -27,9 +27,13 @@ import EditUserShortName from 'components/users/edit/EditUserShortName'
 import EditUserBirthLocation from 'components/users/edit/EditUserBirthLocation'
 import EditUserCurrentLocation from 'components/users/edit/EditUserCurrentLocation'
 
+import ResetUserPassword from 'components/users/edit/ResetUserPassword'
+
 const toast = createStandaloneToast()
 
 export default function ViewUserGeneral ({ user, refetch, onClose }) {
+  const [resetPassword, setResetPassword] = useState(false)
+
   const [result] = useQuery({ query: GET_USER_GENERAL, variables: { filter: { id: user.id } } })
 
   const [deleteUserResult, deleteUser] = useMutation(DELETE_USER)
@@ -57,68 +61,72 @@ export default function ViewUserGeneral ({ user, refetch, onClose }) {
   if (result.error) return <ErrorAlert> {result.error.message} </ErrorAlert>
 
   return (
-    <Stack spacing='8'>
-      <Stack direction='row'>
-        <FormControl>
-          <FormLabel>Username</FormLabel>
-          <EditUserUsername inline user={result.data.getUser} />
-        </FormControl>
-        <FormControl>
-          <FormLabel textAlign='right'>Date of Birth</FormLabel>
-          <EditUserDateOfBirth inline user={result.data.getUser} textAlign='right' />
-        </FormControl>
-      </Stack>
-      <Stack direction='row'>
-        <FormControl>
-          <FormLabel>Full Name</FormLabel>
-          <EditUserFullName inline user={result.data.getUser} />
-        </FormControl>
-        <FormControl>
-          <FormLabel textAlign='right'>Short Name (Nickname)</FormLabel>
-          <EditUserShortName inline user={result.data.getUser} textAlign='right' />
-        </FormControl>
-      </Stack>
-      <Stack direction='row'>
-        <FormControl>
-          <FormLabel>Email</FormLabel>
-          <EditUserEmail inline user={result.data.getUser} />
-        </FormControl>
-        <FormControl>
-          <FormLabel textAlign='right'>Phone Number</FormLabel>
-          <EditUserPhoneNumber inline user={result.data.getUser} textAlign='right' />
-        </FormControl>
-      </Stack>
-      <Stack direction='row'>
-        <FormControl>
-          <FormLabel>Birth Location</FormLabel>
-          <EditUserBirthLocation inline user={result.data.getUser} />
-        </FormControl>
-        <FormControl>
-          <FormLabel textAlign='right'>Current Location</FormLabel>
-          <EditUserCurrentLocation inline user={result.data.getUser} textAlign='right' />
-        </FormControl>
-      </Stack>
-      <Stack width='100%' spacing='4'>
-        {deleteUserResult.fetching && <Loading />}
-        {deleteUserResult.error && <ErrorAlert> {deleteUserResult.error.message} </ErrorAlert>}
-        <Stack direction='row' justifyContent='space-between'>
-          <Button
-            colorScheme='orange'
-            variant='outline'
-            leftIcon={<BiLock />}
-          >
-            Reset Password
-          </Button>
-          <Button
-            colorScheme='red'
-            leftIcon={<BiTrash />}
-            onClick={onDeleteUser}
-            isLoading={deleteUserResult.fetching}
-          >
-            Delete User
-          </Button>
+    <>
+      {resetPassword && <ResetUserPassword user={user} onClose={() => setResetPassword(false)} />}
+      <Stack spacing='8'>
+        <Stack direction='row'>
+          <FormControl>
+            <FormLabel>Username</FormLabel>
+            <EditUserUsername inline user={result.data.getUser} />
+          </FormControl>
+          <FormControl>
+            <FormLabel textAlign='right'>Date of Birth</FormLabel>
+            <EditUserDateOfBirth inline user={result.data.getUser} textAlign='right' />
+          </FormControl>
+        </Stack>
+        <Stack direction='row'>
+          <FormControl>
+            <FormLabel>Full Name</FormLabel>
+            <EditUserFullName inline user={result.data.getUser} />
+          </FormControl>
+          <FormControl>
+            <FormLabel textAlign='right'>Short Name (Nickname)</FormLabel>
+            <EditUserShortName inline user={result.data.getUser} textAlign='right' />
+          </FormControl>
+        </Stack>
+        <Stack direction='row'>
+          <FormControl>
+            <FormLabel>Email</FormLabel>
+            <EditUserEmail inline user={result.data.getUser} />
+          </FormControl>
+          <FormControl>
+            <FormLabel textAlign='right'>Phone Number</FormLabel>
+            <EditUserPhoneNumber inline user={result.data.getUser} textAlign='right' />
+          </FormControl>
+        </Stack>
+        <Stack direction='row'>
+          <FormControl>
+            <FormLabel>Birth Location</FormLabel>
+            <EditUserBirthLocation inline user={result.data.getUser} />
+          </FormControl>
+          <FormControl>
+            <FormLabel textAlign='right'>Current Location</FormLabel>
+            <EditUserCurrentLocation inline user={result.data.getUser} textAlign='right' />
+          </FormControl>
+        </Stack>
+        <Stack width='100%' spacing='4'>
+          {deleteUserResult.fetching && <Loading />}
+          {deleteUserResult.error && <ErrorAlert> {deleteUserResult.error.message} </ErrorAlert>}
+          <Stack direction='row' justifyContent='space-between'>
+            <Button
+              colorScheme='orange'
+              variant='outline'
+              leftIcon={<BiLock />}
+              onClick={() => setResetPassword(true)}
+            >
+              Reset Password
+            </Button>
+            <Button
+              colorScheme='red'
+              leftIcon={<BiTrash />}
+              onClick={onDeleteUser}
+              isLoading={deleteUserResult.fetching}
+            >
+              Delete User
+            </Button>
+          </Stack>
         </Stack>
       </Stack>
-    </Stack>
+    </>
   )
 }

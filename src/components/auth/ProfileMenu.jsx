@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import useAuthUser from 'hooks/useAuthUser'
 
@@ -22,10 +22,14 @@ import { RiLockPasswordLine } from 'react-icons/ri'
 import { FiSettings, FiLogOut } from 'react-icons/fi'
 import { MdNotificationsNone } from 'react-icons/md'
 
+import ResetUserPassword from 'components/users/edit/ResetUserPassword'
+
 export default function ProfileMenu () {
   const { isDesktop, responsive } = useDevice()
 
   const authUser = useAuthUser()
+
+  const [resetPassword, setResetPassword] = useState(false)
 
   const onLogout = () => {
     window.localStorage.removeItem('AUTH_SESSION_ID')
@@ -35,6 +39,7 @@ export default function ProfileMenu () {
 
   return (
     <>
+      {resetPassword && <ResetUserPassword user={authUser} onClose={() => setResetPassword(false)} />}
       <Menu isLazy placement='bottom-end'>
         <MenuButton
           as={Button}
@@ -53,7 +58,7 @@ export default function ProfileMenu () {
         <MenuList zIndex='2'>
           <MenuGroup title='Account'>
             <MenuItem icon={<CgProfile />} onClick={() => { }}>My Profile</MenuItem>
-            <MenuItem icon={<RiLockPasswordLine />} onClick={() => { }}>Reset Password</MenuItem>
+            <MenuItem icon={<RiLockPasswordLine />} onClick={() => setResetPassword(true)}>Reset Password</MenuItem>
           </MenuGroup>
           <MenuGroup title='Settings'>
             <MenuItem icon={<FiSettings />} onClick={() => { }}>

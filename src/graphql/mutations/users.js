@@ -124,6 +124,14 @@ export const DELETE_USER_CHILD = gql`
   }
 `
 
+export const RESET_USER_PASSWORD = gql`
+  mutation RESET_USER_PASSWORD ($userID: String! $password: String!) {
+    resetUserPassword(userID: $userID password: $password){
+      id
+    }
+  }
+`
+
 export const DELETE_USER = gql`
   mutation DELETE_USER ($userID: String!) {
     deleteUser(userID: $userID){
