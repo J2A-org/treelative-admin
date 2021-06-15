@@ -4,12 +4,11 @@ import OpenUser from 'components/users/view/OpenUser'
 
 import EditUserUsername from 'components/users/edit/EditUserUsername'
 import EditUserFullName from 'components/users/edit/EditUserFullName'
-import EditUserEmail from 'components/users/edit/EditUserEmail'
-import EditUserPhoneNumber from 'components/users/edit/EditUserPhoneNumber'
 import EditUserDateOfBirth from 'components/users/edit/EditUserDateOfBirth'
 import EditUserCurrentLocation from 'components/users/edit/EditUserCurrentLocation'
 
 import EditUserPartner from 'components/users/edit/EditUserPartner'
+import ViewUserFamily from 'components/users/view/ViewUserFamily'
 
 const fields = [
   {
@@ -32,20 +31,6 @@ const fields = [
     renderTD: EditUserFullName
   },
   {
-    key: 'email',
-    label: 'Email',
-    canSort: true,
-    width: '250px',
-    renderTD: EditUserEmail
-  },
-  {
-    key: 'phoneNumber',
-    label: 'Phone Number',
-    canSort: true,
-    width: '250px',
-    renderTD: EditUserPhoneNumber
-  },
-  {
     key: 'dateOfBirth',
     label: 'Date of Birth',
     canSort: true,
@@ -53,17 +38,24 @@ const fields = [
     renderTD: EditUserDateOfBirth
   },
   {
+    key: 'partner',
+    label: 'Partner',
+    width: '220px',
+    justifyContent: 'center',
+    renderTD: EditUserPartner
+  },
+  {
+    key: 'family',
+    label: 'Family',
+    width: '180px',
+    justifyContent: 'center',
+    renderTD: ViewUserFamily
+  },
+  {
     key: 'currentLocation',
     label: 'Current Location',
     canSort: true,
     renderTD: EditUserCurrentLocation
-  },
-  {
-    key: 'partner',
-    label: 'Partner',
-    width: '200px',
-    justifyContent: 'center',
-    renderTD: EditUserPartner
   }
 ]
 

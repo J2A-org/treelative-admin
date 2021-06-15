@@ -6,8 +6,6 @@ export const QUERY_USER = gql`
       id
       username
       fullName
-      email
-      phoneNumber
       dateOfBirth
       currentLocation
       couple {
@@ -22,6 +20,27 @@ export const QUERY_USER = gql`
     }
     filteredCount: countUser (where: $where)
     allCount: countUser
+  }
+`
+
+export const GET_USER_FAMILY = gql`
+  query GET_USER_FAMILY ($userID: String!) {
+    allData: getUserFamily (userID: $userID) {
+      id
+      username
+      fullName
+      dateOfBirth
+      currentLocation
+      couple {
+        id
+        dateOfMarriage
+        marriageLocation
+        partner {
+          id
+          fullName
+        }
+      }
+    }
   }
 `
 

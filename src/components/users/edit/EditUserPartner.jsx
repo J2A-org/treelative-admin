@@ -80,7 +80,7 @@ function EditUserPartnerTrigger ({ user }) {
   return (
     <>
       {isOpen && <EditUserPartnerDialog user={user} onClose={onClose} />}
-      <Button isFullWidth mr='-px' onClick={onOpen} size='xs' variant='outline'>
+      <Button isFullWidth onClick={onOpen} size='xs' variant='outline'>
         {user?.couple?.partner?.fullName || '+'}
       </Button>
     </>
@@ -108,7 +108,7 @@ export function EditUserPartnerDialog ({ user, onClose }) {
   }
 
   return (
-    <Modal isOpen onClose={onClose} size='md' scrollBehavior='inside'>
+    <Modal isOpen onClose={onClose} size='sm' scrollBehavior='inside'>
       <ModalOverlay />
       <ModalContent pb='2' minH='300px'>
         <ModalHeader>Edit User Partner</ModalHeader>
