@@ -1,5 +1,8 @@
 # Treelative Admin
 
+## Prerequisite
+- Copy `.env.example` as `.env` with the proper values
+
 ## Development
 - Install dependencies by running `npm i`
 - Start the development server by running `npm run start`
