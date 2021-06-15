@@ -100,6 +100,7 @@ function EditUserParentsInline ({ user }) {
           <Stack flex='1'>
             <UserSelection
               autoFocus
+              key={`parentOne_key__${JSON.stringify(parentOne ? { label: parentOne.fullName, value: parentOne.id } : undefined)}`}
               value={parentOne ? { label: parentOne.fullName, value: parentOne.id } : undefined}
               onChange={handleOnChange}
               placeholder='Select Parent One'
@@ -124,6 +125,8 @@ function EditUserParentsInline ({ user }) {
         <Stack direction='row' justifyContent='space-between' alignItems='center'>
           <Stack flex='1'>
             <UserSelection
+              key={`parentTwo_key__${JSON.stringify(parentTwo ? { label: parentTwo.fullName, value: parentTwo.id } : undefined)}`}
+              isDisabled={!parentOne}
               value={parentTwo ? { label: parentTwo.fullName, value: parentTwo.id } : undefined}
               onChange={handleOnChange}
               placeholder='Select Parent Two'
@@ -147,7 +150,8 @@ function EditUserParentsInline ({ user }) {
       <Alert status='warning' borderRadius='lg'>
         <AlertIcon />
         <AlertDescription>
-          A parent with a partner will automatically be added as the second parent
+          {!parentOne && 'A parent with a partner will automatically be added as the second parent'}
+          {parentOne && 'Selecting a new parent with a partner will automatically be added as the second parent'}
         </AlertDescription>
       </Alert>
     </Stack>

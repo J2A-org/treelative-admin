@@ -57,6 +57,7 @@ function EditUserPartnerInline ({ user }) {
     <Stack spacing='8'>
       <UserSelection
         autoFocus
+        key={`partner_key__${JSON.stringify(user?.couple?.partner?.id ? { label: user?.couple?.partner?.fullName, value: user?.couple?.partner?.id } : undefined)}`}
         query={LIST_USER_PARTNERS}
         variables={{ userID: user.id }}
         value={user?.couple?.partner?.id ? { label: user?.couple?.partner?.fullName, value: user?.couple?.partner?.id } : undefined}
@@ -103,7 +104,6 @@ export function EditUserPartnerDialog ({ user, onClose }) {
             duration: 3000,
             isClosable: true
           })
-          onClose()
         }
       })
   }
