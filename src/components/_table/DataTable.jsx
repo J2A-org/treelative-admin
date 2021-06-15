@@ -98,8 +98,12 @@ export default function DataTable (props) {
           <Box as='tbody' my='20px' display='contents'>
             {rows.map(row => (
               <Box key={row[rowKey]} as='tr' display='contents'>
-                {filteredFields.map(({ key: columnKey, renderTD: RenderTD, justifyContent = 'left', ...rest }) => {
+                {filteredFields.map(({ key: columnKey, renderTD: RenderTD, justifyContent = 'left', forwardRefetch, ...rest }) => {
                   const cellProps = { ...rest, [rowType]: row, justifyContent }
+                  if (forwardRefetch) {
+                    cellProps.refetch = refetch
+                    cellProps.isRefetching = isRefetching
+                  }
                   return (
                     <TableDataCell key={`${rowKey}-${columnKey}`} justifyContent={justifyContent} fontSize='sm'>
                       <RenderTD {...cellProps} />

@@ -34,7 +34,7 @@ export default function EditUserPartner ({ inline = false, ...props }) {
   return inline ? <EditUserPartnerInline {...props} /> : <EditUserPartnerTrigger {...props} />
 }
 
-function EditUserPartnerInline ({ user }) {
+function EditUserPartnerInline ({ user, refetch, isRefetching }) {
   const [result, addCouple] = useMutation(ADD_COUPLE)
 
   const handleOnChange = userPartner => {
@@ -42,6 +42,7 @@ function EditUserPartnerInline ({ user }) {
     addCouple(variables)
       .then(result => {
         if (result.data) {
+          refetch()
           toast({
             title: 'Successfully updated the partner',
             status: 'success',
@@ -65,7 +66,7 @@ function EditUserPartnerInline ({ user }) {
         onChange={handleOnChange}
         placeholder='Select a Partner'
       />
-      {result.fetching && <Loading />}
+      {(result.fetching || isRefetching) && <Loading />}
       {result.error && <ErrorAlert> {result.error.message} </ErrorAlert>}
       {user?.couple && (
         <>
@@ -77,12 +78,12 @@ function EditUserPartnerInline ({ user }) {
   )
 }
 
-function EditUserPartnerTrigger ({ user }) {
+function EditUserPartnerTrigger ({ user, refetch, isRefetching }) {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
     <>
-      {isOpen && <EditUserPartnerDialog user={user} onClose={onClose} />}
+      {isOpen && <EditUserPartnerDialog user={user} refetch={refetch} isRefetching={isRefetching} onClose={onClose} />}
       <Button isFullWidth onClick={onOpen} size='xs' variant='outline'>
         {user?.couple?.partner?.fullName || '+'}
       </Button>
@@ -90,7 +91,7 @@ function EditUserPartnerTrigger ({ user }) {
   )
 }
 
-export function EditUserPartnerDialog ({ user, onClose }) {
+export function EditUserPartnerDialog ({ user, refetch, isRefetching, onClose }) {
   const [result, deleteCouple] = useMutation(DELETE_COUPLE)
 
   const handleRemovePartner = () => {
@@ -110,16 +111,16 @@ export function EditUserPartnerDialog ({ user, onClose }) {
   }
 
   return (
-    <Modal isOpen onClose={onClose} size='sm' scrollBehavior='inside'>
+    <Modal isOpen onClose={onClose} size='sm' scrollBehavior='inside' closeOnOverlayClick={false}>
       <ModalOverlay />
       <ModalContent pb='2' minH='300px'>
         <ModalHeader>
           Edit Partner
           <Text fontSize='xs'>{user.fullName}</Text>
         </ModalHeader>
-        <ModalCloseButton />
+        <ModalCloseButton isDisabled={isRefetching} />
         <ModalBody pb='4'>
-          <EditUserPartnerInline user={user} />
+          <EditUserPartnerInline user={user} refetch={refetch} isRefetching={isRefetching} />
         </ModalBody>
         {user?.couple?.partner?.id && (
           <ModalFooter>

@@ -49,21 +49,21 @@ const fields = [
   {
     key: 'parents',
     label: 'Parents',
-    // width: '120px',
+    forwardRefetch: true,
     justifyContent: 'center',
     renderTD: EditUserParents
   },
   {
     key: 'children',
     label: 'Children',
-    // width: '120px',
+    forwardRefetch: true,
     justifyContent: 'center',
     renderTD: EditUserChildren
   },
   {
     key: 'partner',
     label: 'Partner',
-    // width: '220px',
+    forwardRefetch: true,
     justifyContent: 'center',
     renderTD: EditUserPartner
   },

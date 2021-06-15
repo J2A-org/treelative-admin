@@ -36,7 +36,7 @@ export default function EditUserParents ({ inline = false, ...props }) {
   return inline ? <EditUserParentsInline {...props} /> : <EditUserParentsTrigger {...props} />
 }
 
-function EditUserParentsInline ({ user }) {
+function EditUserParentsInline ({ user, refetch, isRefetching }) {
   const [result, addUserParent] = useMutation(ADD_USER_PARENT)
 
   const [removeParentOneResult, removeUserParentOne] = useMutation(DELETE_USER_PARENT)
@@ -47,6 +47,7 @@ function EditUserParentsInline ({ user }) {
     addUserParent(variables)
       .then(result => {
         if (result.data) {
+          refetch()
           toast({
             title: 'Successfully updated the parent',
             status: 'success',
@@ -63,6 +64,7 @@ function EditUserParentsInline ({ user }) {
     removeUserParentOne(variables)
       .then(result => {
         if (result.data) {
+          refetch()
           toast({
             title: 'Successfully removed the parent',
             status: 'success',
@@ -79,6 +81,7 @@ function EditUserParentsInline ({ user }) {
     removeUserParentTwo(variables)
       .then(result => {
         if (result.data) {
+          refetch()
           toast({
             title: 'Successfully removed the parent',
             status: 'success',
@@ -100,7 +103,7 @@ function EditUserParentsInline ({ user }) {
           <Stack flex='1'>
             <UserSelection
               autoFocus
-              isDisabled={result.fetching || removeParentOneResult.fetching}
+              isDisabled={result.fetching || isRefetching || removeParentOneResult.fetching}
               key={`parentOne_key__${JSON.stringify(parentOne ? { label: parentOne.fullName, value: parentOne.id } : undefined)}`}
               value={parentOne ? { label: parentOne.fullName, value: parentOne.id } : undefined}
               onChange={handleOnChange}
@@ -126,7 +129,7 @@ function EditUserParentsInline ({ user }) {
         <Stack direction='row' justifyContent='space-between' alignItems='center'>
           <Stack flex='1'>
             <UserSelection
-              isDisabled={!parentOne || result.fetching || removeParentTwoResult.fetching}
+              isDisabled={!parentOne || result.fetching || isRefetching || removeParentTwoResult.fetching}
               key={`parentTwo_key__${JSON.stringify(parentTwo ? { label: parentTwo.fullName, value: parentTwo.id } : undefined)}`}
               value={parentTwo ? { label: parentTwo.fullName, value: parentTwo.id } : undefined}
               onChange={handleOnChange}
@@ -146,7 +149,7 @@ function EditUserParentsInline ({ user }) {
           />
         </Stack>
       </FormControl>
-      {result.fetching && <Loading />}
+      {(result.fetching || isRefetching) && <Loading />}
       {result.error && <ErrorAlert> {result.error.message} </ErrorAlert>}
       <Alert status='warning' borderRadius='lg'>
         <AlertIcon />
@@ -159,12 +162,12 @@ function EditUserParentsInline ({ user }) {
   )
 }
 
-function EditUserParentsTrigger ({ user }) {
+function EditUserParentsTrigger (props) {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
     <>
-      {isOpen && <EditUserParentsDialog user={user} onClose={onClose} />}
+      {isOpen && <EditUserParentsDialog {...props} onClose={onClose} />}
       <Button isFullWidth onClick={onOpen} size='xs' variant='outline'>
         Parents
       </Button>
@@ -172,18 +175,18 @@ function EditUserParentsTrigger ({ user }) {
   )
 }
 
-export function EditUserParentsDialog ({ user, onClose }) {
+export function EditUserParentsDialog ({ user, refetch, isRefetching, onClose }) {
   return (
-    <Modal isOpen onClose={onClose} size='md' scrollBehavior='inside'>
+    <Modal isOpen onClose={onClose} size='md' scrollBehavior='inside' closeOnOverlayClick={false}>
       <ModalOverlay />
       <ModalContent pb='2' minH='300px'>
         <ModalHeader>
           Edit Parents
           <Text fontSize='xs'>{user.fullName}</Text>
         </ModalHeader>
-        <ModalCloseButton />
+        <ModalCloseButton isDisabled={isRefetching} />
         <ModalBody pb='4'>
-          <EditUserParentsInline user={user} />
+          <EditUserParentsInline user={user} refetch={refetch} isRefetching={isRefetching} />
         </ModalBody>
       </ModalContent>
     </Modal>

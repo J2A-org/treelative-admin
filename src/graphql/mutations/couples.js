@@ -6,21 +6,9 @@ export const ADD_COUPLE = gql`
       id
       userOne {
         id
-        couple {
-          id
-          partner {
-            id
-          }
-        }
       }
       userTwo {
         id
-        couple {
-          id
-          partner {
-            id
-          }
-        }
       }
     }
   }
@@ -50,7 +38,6 @@ export const UPDATE_COUPLE_DATE_OF_MARRIAGE = gql`
   mutation UPDATE_COUPLE_DATE_OF_MARRIAGE ($coupleID: String! $input: UpdateCoupleInput!) {
     updateCouple(coupleID: $coupleID input: $input) {
       id
-      dateOfMarriage
       userOne {
         id
         couple {
@@ -73,7 +60,6 @@ export const UPDATE_COUPLE_MARRIAGE_LOCATION = gql`
   mutation UPDATE_COUPLE_MARRIAGE_LOCATION ($coupleID: String! $input: UpdateCoupleInput!) {
     updateCouple(coupleID: $coupleID input: $input) {
       id
-      marriageLocation
       userOne {
         id
         couple {

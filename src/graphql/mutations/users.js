@@ -77,9 +77,6 @@ export const ADD_USER_PARENT = gql`
       id
       parents {
         id
-        children {
-          id
-        }
       }
     }
   }
@@ -102,9 +99,6 @@ export const ADD_USER_CHILD = gql`
       id
       children {
         id
-        parents {
-          id
-        }
       }
     }
   }
@@ -116,9 +110,6 @@ export const DELETE_USER_CHILD = gql`
       id
       children {
         id
-        parents {
-          id
-        }
       }
     }
   }

@@ -30,7 +30,7 @@ export default function EditUserChildren ({ inline = false, ...props }) {
   return inline ? <EditUserChildrenInline {...props} /> : <EditUserChildrenTrigger {...props} />
 }
 
-function EditUserChildrenInline ({ user }) {
+function EditUserChildrenInline ({ user, refetch, isRefetching }) {
   const [result, addUserChild] = useMutation(ADD_USER_CHILD)
 
   const [removeUserChildResult, removeUserChild] = useMutation(DELETE_USER_CHILD)
@@ -54,6 +54,7 @@ function EditUserChildrenInline ({ user }) {
       addUserChild({ userID: user.id, childID: value })
         .then(result => {
           if (result.data) {
+            refetch()
             toast({
               title: 'Successfully added the child',
               status: 'success',
@@ -67,6 +68,7 @@ function EditUserChildrenInline ({ user }) {
       removeUserChild({ userID: user.id, childID: value })
         .then(result => {
           if (result.data) {
+            refetch()
             toast({
               title: 'Successfully removed the child',
               status: 'success',
@@ -84,7 +86,7 @@ function EditUserChildrenInline ({ user }) {
       <UserSelection
         autoFocus
         isMulti
-        isDisabled={result.fetching || removeUserChildResult.fetching}
+        isDisabled={result.fetching || isRefetching || removeUserChildResult.fetching}
         isClearable={false}
         query={LIST_USER_AVAILABLE_CHILDREN}
         variables={{ userID: user.id }}
@@ -93,7 +95,7 @@ function EditUserChildrenInline ({ user }) {
         onChange={handleOnChange}
         placeholder='Select Children'
       />
-      {result.fetching && <Loading />}
+      {(result.fetching || isRefetching) && <Loading />}
       {result.error && <ErrorAlert> {result.error.message} </ErrorAlert>}
       {removeUserChildResult.fetching && <Loading />}
       {removeUserChildResult.error && <ErrorAlert> {removeUserChildResult.error.message} </ErrorAlert>}
@@ -101,12 +103,12 @@ function EditUserChildrenInline ({ user }) {
   )
 }
 
-function EditUserChildrenTrigger ({ user }) {
+function EditUserChildrenTrigger ({ user, refetch, isRefetching }) {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
     <>
-      {isOpen && <EditUserChildrenDialog user={user} onClose={onClose} />}
+      {isOpen && <EditUserChildrenDialog user={user} refetch={refetch} isRefetching={isRefetching} onClose={onClose} />}
       <Button isFullWidth onClick={onOpen} size='xs' variant='outline'>
         {user?.children?.length || '0'} Children
       </Button>
@@ -114,18 +116,18 @@ function EditUserChildrenTrigger ({ user }) {
   )
 }
 
-export function EditUserChildrenDialog ({ user, onClose }) {
+export function EditUserChildrenDialog ({ user, refetch, isRefetching, onClose }) {
   return (
-    <Modal isOpen onClose={onClose} size='md' scrollBehavior='inside'>
+    <Modal isOpen onClose={onClose} size='md' scrollBehavior='inside' closeOnOverlayClick={false}>
       <ModalOverlay />
       <ModalContent pb='2' minH='500px'>
         <ModalHeader>
           Edit Children
           <Text fontSize='xs'>{user.fullName}</Text>
         </ModalHeader>
-        <ModalCloseButton />
+        <ModalCloseButton isDisabled={isRefetching} />
         <ModalBody pb='4'>
-          <EditUserChildrenInline user={user} />
+          <EditUserChildrenInline user={user} refetch={refetch} isRefetching={isRefetching} />
         </ModalBody>
       </ModalContent>
     </Modal>
