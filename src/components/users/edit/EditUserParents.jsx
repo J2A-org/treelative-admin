@@ -100,6 +100,7 @@ function EditUserParentsInline ({ user }) {
           <Stack flex='1'>
             <UserSelection
               autoFocus
+              isDisabled={result.fetching || removeParentOneResult.fetching}
               key={`parentOne_key__${JSON.stringify(parentOne ? { label: parentOne.fullName, value: parentOne.id } : undefined)}`}
               value={parentOne ? { label: parentOne.fullName, value: parentOne.id } : undefined}
               onChange={handleOnChange}
@@ -110,7 +111,7 @@ function EditUserParentsInline ({ user }) {
           <IconButton
             colorScheme='red'
             variant='outline'
-            aria-label='Remove Parent'
+            aria-label='Remove Parent One'
             fontSize='20px'
             icon={<BsTrash />}
             onClick={() => handleRemoveParentOne(parentOne.id)}
@@ -125,8 +126,8 @@ function EditUserParentsInline ({ user }) {
         <Stack direction='row' justifyContent='space-between' alignItems='center'>
           <Stack flex='1'>
             <UserSelection
+              isDisabled={!parentOne || result.fetching || removeParentTwoResult.fetching}
               key={`parentTwo_key__${JSON.stringify(parentTwo ? { label: parentTwo.fullName, value: parentTwo.id } : undefined)}`}
-              isDisabled={!parentOne}
               value={parentTwo ? { label: parentTwo.fullName, value: parentTwo.id } : undefined}
               onChange={handleOnChange}
               placeholder='Select Parent Two'
@@ -136,7 +137,7 @@ function EditUserParentsInline ({ user }) {
           <IconButton
             colorScheme='red'
             variant='outline'
-            aria-label='Remove Parent'
+            aria-label='Remove Parent Two'
             fontSize='20px'
             icon={<BsTrash />}
             onClick={() => handleRemoveParentTwo(parentTwo.id)}

@@ -58,12 +58,23 @@ export default function useStyles (isDark = false) {
     multiValue: (styles) => ({
       ...styles,
       backgroundColor: multiValueBgColor,
-      color: multiValueColor
+      color: multiValueColor,
+      height: '40px',
+      display: 'flex',
+      alignItems: 'center',
+      fontSize: '18px',
+      borderRadius: '10px',
+      padding: '0px 4px'
     }),
     multiValueRemove: (styles) => ({
       ...styles,
+      height: '30px',
+      width: '25px',
+      display: 'flex',
+      justifyContent: 'center',
+      borderRadius: '6px',
       ':hover': {
-        backgroundColor: 'var(--chakra-colors-blue-800)',
+        backgroundColor: 'var(--chakra-colors-red-500)',
         color: 'white'
       }
     }),

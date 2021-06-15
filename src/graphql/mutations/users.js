@@ -77,7 +77,9 @@ export const ADD_USER_PARENT = gql`
       id
       parents {
         id
-        fullName
+        children {
+          id
+        }
       }
     }
   }
@@ -89,6 +91,34 @@ export const DELETE_USER_PARENT = gql`
       id
       parents {
         id
+      }
+    }
+  }
+`
+
+export const ADD_USER_CHILD = gql`
+  mutation ADD_USER_CHILD ($userID: String! $childID: String!) {
+    addUserChild(userID: $userID childID: $childID){
+      id
+      children {
+        id
+        parents {
+          id
+        }
+      }
+    }
+  }
+`
+
+export const DELETE_USER_CHILD = gql`
+  mutation DELETE_USER_CHILD ($userID: String! $childID: String!) {
+    deleteUserChild(userID: $userID childID: $childID){
+      id
+      children {
+        id
+        parents {
+          id
+        }
       }
     }
   }

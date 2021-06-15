@@ -6,9 +6,9 @@ import EditUserUsername from 'components/users/edit/EditUserUsername'
 import EditUserShortName from 'components/users/edit/EditUserShortName'
 import EditUserFullName from 'components/users/edit/EditUserFullName'
 import EditUserDateOfBirth from 'components/users/edit/EditUserDateOfBirth'
-import EditUserCurrentLocation from 'components/users/edit/EditUserCurrentLocation'
 
 import EditUserParents from 'components/users/edit/EditUserParents'
+import EditUserChildren from 'components/users/edit/EditUserChildren'
 import EditUserPartner from 'components/users/edit/EditUserPartner'
 import ViewUserFamily from 'components/users/view/ViewUserFamily'
 
@@ -49,29 +49,30 @@ const fields = [
   {
     key: 'parents',
     label: 'Parents',
-    width: '220px',
+    // width: '120px',
     justifyContent: 'center',
     renderTD: EditUserParents
   },
   {
+    key: 'children',
+    label: 'Children',
+    // width: '120px',
+    justifyContent: 'center',
+    renderTD: EditUserChildren
+  },
+  {
     key: 'partner',
     label: 'Partner',
-    width: '220px',
+    // width: '220px',
     justifyContent: 'center',
     renderTD: EditUserPartner
   },
   {
     key: 'family',
     label: 'Family',
-    width: '180px',
+    // width: '180px',
     justifyContent: 'center',
     renderTD: ViewUserFamily
-  },
-  {
-    key: 'currentLocation',
-    label: 'Current Location',
-    canSort: true,
-    renderTD: EditUserCurrentLocation
   }
 ]
 

@@ -7,8 +7,11 @@ export const QUERY_USER = gql`
       username
       fullName
       dateOfBirth
-      currentLocation
       parents {
+        id
+        fullName
+      }
+      children {
         id
         fullName
       }
@@ -34,7 +37,14 @@ export const GET_USER_FAMILY = gql`
       username
       fullName
       dateOfBirth
-      currentLocation
+      parents {
+        id
+        fullName
+      }
+      children {
+        id
+        fullName
+      }
       couple {
         id
         dateOfMarriage
@@ -57,9 +67,18 @@ export const LIST_USERS = gql`
   }
 `
 
-export const LIST_USER_PARTNERS = gql`
-  query LIST_USER_PARTNERS ($userID: String! $search: String!) {
+export const LIST_USER_AVAILABLE_PARTNERS = gql`
+  query LIST_USER_AVAILABLE_PARTNERS ($userID: String! $search: String!) {
     users: getUserAvailablePartners (userID: $userID where: { fullName: { startsWith: $search mode: "insensitive" } } orderBy: { fullName: asc } take: 5) {
+      id
+      fullName
+    }
+  }
+`
+
+export const LIST_USER_AVAILABLE_CHILDREN = gql`
+  query LIST_USER_AVAILABLE_CHILDREN ($userID: String! $search: String!) {
+    users: getUserAvailableChildren (userID: $userID where: { fullName: { startsWith: $search mode: "insensitive" } } orderBy: { fullName: asc } take: 5) {
       id
       fullName
     }

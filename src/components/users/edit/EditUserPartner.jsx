@@ -5,7 +5,7 @@ import UserSelection from 'components/users/UserSelection'
 import { useMutation } from 'urql'
 import { ADD_COUPLE, DELETE_COUPLE } from 'graphql/mutations/couples'
 
-import { LIST_USER_PARTNERS } from 'graphql/queries/users'
+import { LIST_USER_AVAILABLE_PARTNERS } from 'graphql/queries/users'
 
 import Loading from 'components/_common/Loading'
 import ErrorAlert from 'components/_common/ErrorAlert'
@@ -57,8 +57,9 @@ function EditUserPartnerInline ({ user }) {
     <Stack spacing='8'>
       <UserSelection
         autoFocus
+        isDisabled={result.fetching}
         key={`partner_key__${JSON.stringify(user?.couple?.partner?.id ? { label: user?.couple?.partner?.fullName, value: user?.couple?.partner?.id } : undefined)}`}
-        query={LIST_USER_PARTNERS}
+        query={LIST_USER_AVAILABLE_PARTNERS}
         variables={{ userID: user.id }}
         value={user?.couple?.partner?.id ? { label: user?.couple?.partner?.fullName, value: user?.couple?.partner?.id } : undefined}
         onChange={handleOnChange}
