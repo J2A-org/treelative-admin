@@ -16,13 +16,15 @@ import {
   Stack,
   Button,
   ModalBody,
+  FormLabel,
   ModalHeader,
+  ModalFooter,
+  FormControl,
   ModalOverlay,
   ModalContent,
   useDisclosure,
   ModalCloseButton,
-  createStandaloneToast,
-  ModalFooter
+  createStandaloneToast
 } from '@chakra-ui/react'
 
 import EditCoupleDateOfMarriage from 'components/couples/edit/EditCoupleDateOfMarriage'
@@ -56,16 +58,19 @@ function EditUserPartnerInline ({ user, refetch, isRefetching }) {
 
   return (
     <Stack spacing='8'>
-      <UserSelection
-        autoFocus
-        isDisabled={result.fetching}
-        key={`partner_key__${JSON.stringify(user?.couple?.partner?.id ? { label: user?.couple?.partner?.fullName, value: user?.couple?.partner?.id } : undefined)}`}
-        query={LIST_USER_AVAILABLE_PARTNERS}
-        variables={{ userID: user.id }}
-        value={user?.couple?.partner?.id ? { label: user?.couple?.partner?.fullName, value: user?.couple?.partner?.id } : undefined}
-        onChange={handleOnChange}
-        placeholder='Select a Partner'
-      />
+      <FormControl>
+        <FormLabel>Partner</FormLabel>
+        <UserSelection
+          autoFocus
+          isDisabled={result.fetching}
+          key={`partner_key__${JSON.stringify(user?.couple?.partner?.id ? { label: user?.couple?.partner?.fullName, value: user?.couple?.partner?.id } : undefined)}`}
+          query={LIST_USER_AVAILABLE_PARTNERS}
+          variables={{ userID: user.id }}
+          value={user?.couple?.partner?.id ? { label: user?.couple?.partner?.fullName, value: user?.couple?.partner?.id } : undefined}
+          onChange={handleOnChange}
+          placeholder='Select a Partner'
+        />
+      </FormControl>
       {(result.fetching || isRefetching) && <Loading />}
       {result.error && <ErrorAlert> {result.error.message} </ErrorAlert>}
       {user?.couple && (

@@ -7,30 +7,19 @@ import {
   Modal,
   Stack,
   Badge,
-  Button,
   ModalBody,
   IconButton,
   ModalHeader,
-  ModalFooter,
   ModalContent,
   ModalOverlay,
   useDisclosure,
-  ModalCloseButton,
-  createStandaloneToast
+  ModalCloseButton
 } from '@chakra-ui/react'
 
 import { AiOutlineEye, AiFillEyeInvisible } from 'react-icons/ai'
-import { BiEdit, BiTrash } from 'react-icons/bi'
+import { BiEdit } from 'react-icons/bi'
 
 import ViewUser from 'components/users/view/ViewUser'
-
-import Loading from 'components/_common/Loading'
-import ErrorAlert from 'components/_common/ErrorAlert'
-
-import { useMutation } from 'urql'
-import { DELETE_USER } from 'graphql/mutations/users'
-
-const toast = createStandaloneToast()
 
 export default function OpenUserTrigger ({ user, refetch, self, edit: EditComponent }) {
   const [isEditVisible, setIsEditVisible] = useState(false)
@@ -78,49 +67,15 @@ export default function OpenUserTrigger ({ user, refetch, self, edit: EditCompon
 }
 
 function OpenUser ({ user, refetch, onClose }) {
-  const [result, deleteUser] = useMutation(DELETE_USER)
-
-  const onDeleteUser = () => {
-    const variables = { userID: user.id }
-    deleteUser(variables)
-      .then(result => {
-        if (result.data) {
-          refetch()
-          toast({
-            title: 'Successfully deleted the user',
-            status: 'success',
-            position: 'top',
-            duration: 3000,
-            isClosable: true
-          })
-          onClose()
-        }
-      })
-  }
-
   return (
-    <Modal isOpen onClose={onClose} size='2xl' scrollBehavior='inside'>
+    <Modal isOpen onClose={onClose} size='xl' scrollBehavior='inside'>
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent minH='400px'>
         <ModalHeader>{user.fullName}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <ViewUser user={user} />
+          <ViewUser user={user} refetch={refetch} onClose={onClose} />
         </ModalBody>
-        <ModalFooter>
-          <Stack width='100%' alignItems='center' spacing='4'>
-            {result.fetching && <Loading />}
-            {result.error && <ErrorAlert> {result.error.message} </ErrorAlert>}
-            <Button
-              colorScheme='red'
-              leftIcon={<BiTrash />}
-              onClick={onDeleteUser}
-              isLoading={result.fetching}
-            >
-              Delete User
-            </Button>
-          </Stack>
-        </ModalFooter>
       </ModalContent>
     </Modal>
   )

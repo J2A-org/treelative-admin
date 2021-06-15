@@ -16,7 +16,9 @@ import {
   Stack,
   Button,
   ModalBody,
+  FormLabel,
   ModalHeader,
+  FormControl,
   ModalOverlay,
   ModalContent,
   useDisclosure,
@@ -83,18 +85,21 @@ function EditUserChildrenInline ({ user, refetch, isRefetching }) {
 
   return (
     <Stack spacing='8'>
-      <UserSelection
-        autoFocus
-        isMulti
-        isDisabled={result.fetching || isRefetching || removeUserChildResult.fetching}
-        isClearable={false}
-        query={LIST_USER_AVAILABLE_CHILDREN}
-        variables={{ userID: user.id }}
-        key={`children_key__${JSON.stringify(user?.children?.length > 0 ? user?.children.map(child => ({ label: child?.fullName, value: child?.id })) : undefined)}`}
-        value={user?.children ? user?.children.map(child => ({ label: child?.fullName, value: child?.id })) : undefined}
-        onChange={handleOnChange}
-        placeholder='Select Children'
-      />
+      <FormControl>
+        <FormLabel>Children</FormLabel>
+        <UserSelection
+          autoFocus
+          isMulti
+          isDisabled={result.fetching || isRefetching || removeUserChildResult.fetching}
+          isClearable={false}
+          query={LIST_USER_AVAILABLE_CHILDREN}
+          variables={{ userID: user.id }}
+          key={`children_key__${JSON.stringify(user?.children?.length > 0 ? user?.children.map(child => ({ label: child?.fullName, value: child?.id })) : undefined)}`}
+          value={user?.children ? user?.children.map(child => ({ label: child?.fullName, value: child?.id })) : undefined}
+          onChange={handleOnChange}
+          placeholder='Select Children'
+        />
+      </FormControl>
       {(result.fetching || isRefetching) && <Loading />}
       {result.error && <ErrorAlert> {result.error.message} </ErrorAlert>}
       {removeUserChildResult.fetching && <Loading />}

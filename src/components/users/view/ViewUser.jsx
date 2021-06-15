@@ -9,32 +9,36 @@ import {
 } from '@chakra-ui/react'
 
 import ViewUserGeneral from 'components/users/view/ViewUserGeneral'
-// import EditUserPermissions from 'components/users/edit/EditUserPermissions'
-// import ViewUserLoginApprovals from 'components/users/view/ViewUserLoginApprovals'
-// import ViewUserTickets from 'components/users/view/ViewUserTickets'
+import EditUserPartner from 'components/users/edit/EditUserPartner'
+import EditUserParents from 'components/users/edit/EditUserParents'
+import EditUserChildren from 'components/users/edit/EditUserChildren'
 
-export default function ViewUser ({ user }) {
+export default function ViewUser ({ user, refetch, onClose }) {
   return (
     <Tabs isLazy isFitted>
       <TabList>
         <Tab>General</Tab>
-        <Tab>Permissions</Tab>
-        <Tab>Login Approvals</Tab>
-        <Tab>Tickets</Tab>
+        <Tab>Partner</Tab>
+        <Tab>Parents</Tab>
+        <Tab>Children</Tab>
+        <Tab>Settings</Tab>
       </TabList>
 
       <TabPanels>
         <TabPanel>
-          <ViewUserGeneral inline user={user} />
-        </TabPanel>
-        <TabPanel d='flex' justifyContent='center'>
-          {/* <EditUserPermissions inline user={user} /> */}
+          <ViewUserGeneral inline user={user} refetch={refetch} onClose={onClose} />
         </TabPanel>
         <TabPanel>
-          {/* <ViewUserLoginApprovals inline user={user} /> */}
+          <EditUserPartner inline user={user} refetch={refetch} />
         </TabPanel>
         <TabPanel>
-          {/* <ViewUserTickets inline user={user} /> */}
+          <EditUserParents inline user={user} refetch={refetch} />
+        </TabPanel>
+        <TabPanel>
+          <EditUserChildren inline user={user} refetch={refetch} />
+        </TabPanel>
+        <TabPanel>
+          TODO
         </TabPanel>
       </TabPanels>
     </Tabs>

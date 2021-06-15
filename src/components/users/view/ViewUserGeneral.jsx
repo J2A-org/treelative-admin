@@ -2,12 +2,18 @@ import React from 'react'
 
 import {
   Stack,
+  Button,
   FormLabel,
-  FormControl
+  FormControl,
+  createStandaloneToast
 } from '@chakra-ui/react'
 
-import { useQuery } from 'urql'
+import { BiLock, BiTrash } from 'react-icons/bi'
+
+import { useQuery, useMutation } from 'urql'
 import { GET_USER_GENERAL } from 'graphql/queries/users'
+
+import { DELETE_USER } from 'graphql/mutations/users'
 
 import Loading from 'components/_common/Loading'
 import ErrorAlert from 'components/_common/ErrorAlert'
@@ -21,8 +27,30 @@ import EditUserShortName from 'components/users/edit/EditUserShortName'
 import EditUserBirthLocation from 'components/users/edit/EditUserBirthLocation'
 import EditUserCurrentLocation from 'components/users/edit/EditUserCurrentLocation'
 
-export default function ViewUserGeneral ({ user }) {
+const toast = createStandaloneToast()
+
+export default function ViewUserGeneral ({ user, refetch, onClose }) {
   const [result] = useQuery({ query: GET_USER_GENERAL, variables: { filter: { id: user.id } } })
+
+  const [deleteUserResult, deleteUser] = useMutation(DELETE_USER)
+
+  const onDeleteUser = () => {
+    const variables = { userID: user.id }
+    deleteUser(variables)
+      .then(result => {
+        if (result.data) {
+          refetch()
+          toast({
+            title: 'Successfully deleted the user',
+            status: 'success',
+            position: 'top',
+            duration: 3000,
+            isClosable: true
+          })
+          onClose()
+        }
+      })
+  }
 
   if (result.fetching) return <Loading />
 
@@ -69,6 +97,27 @@ export default function ViewUserGeneral ({ user }) {
           <FormLabel textAlign='right'>Current Location</FormLabel>
           <EditUserCurrentLocation inline user={result.data.getUser} textAlign='right' />
         </FormControl>
+      </Stack>
+      <Stack width='100%' spacing='4'>
+        {deleteUserResult.fetching && <Loading />}
+        {deleteUserResult.error && <ErrorAlert> {deleteUserResult.error.message} </ErrorAlert>}
+        <Stack direction='row' justifyContent='space-between'>
+          <Button
+            colorScheme='orange'
+            variant='outline'
+            leftIcon={<BiLock />}
+          >
+            Reset Password
+          </Button>
+          <Button
+            colorScheme='red'
+            leftIcon={<BiTrash />}
+            onClick={onDeleteUser}
+            isLoading={deleteUserResult.fetching}
+          >
+            Delete User
+          </Button>
+        </Stack>
       </Stack>
     </Stack>
   )
