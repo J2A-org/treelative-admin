@@ -33,7 +33,7 @@ function ViewUserFamilyInline ({ user }) {
   return (
     <SimpleTable
       rows={result.data.allData}
-      hideFields={['family']}
+      hideFields={['username', 'family']}
       fields={fields}
       rowKey='id'
       rowType='user'
