@@ -8,7 +8,7 @@ import {
   TabPanels
 } from '@chakra-ui/react'
 
-// import ViewUserGeneral from 'components/users/view/ViewUserGeneral'
+import ViewUserGeneral from 'components/users/view/ViewUserGeneral'
 // import EditUserPermissions from 'components/users/edit/EditUserPermissions'
 // import ViewUserLoginApprovals from 'components/users/view/ViewUserLoginApprovals'
 // import ViewUserTickets from 'components/users/view/ViewUserTickets'
@@ -25,7 +25,7 @@ export default function ViewUser ({ user }) {
 
       <TabPanels>
         <TabPanel>
-          {/* <ViewUserGeneral inline user={user} /> */}
+          <ViewUserGeneral inline user={user} />
         </TabPanel>
         <TabPanel d='flex' justifyContent='center'>
           {/* <EditUserPermissions inline user={user} /> */}

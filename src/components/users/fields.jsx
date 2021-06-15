@@ -16,6 +16,7 @@ const fields = [
   {
     key: 'view',
     width: '60px',
+    forwardRefetch: true,
     renderTD: (props) => <OpenUser {...props} self />
   },
   {
@@ -70,7 +71,6 @@ const fields = [
   {
     key: 'family',
     label: 'Family',
-    // width: '180px',
     justifyContent: 'center',
     renderTD: ViewUserFamily
   }

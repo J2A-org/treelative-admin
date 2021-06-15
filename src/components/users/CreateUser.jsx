@@ -110,6 +110,18 @@ export default function CreateUser ({ refetch }) {
               </FormControl>
             </Stack>
             <Stack direction='row'>
+              <FormControl isRequired isInvalid={errors?.fullName}>
+                <FormLabel>Full Name</FormLabel>
+                <Input {...register('fullName')} />
+                <FormErrorMessage>{errors?.fullName?.message}</FormErrorMessage>
+              </FormControl>
+              <FormControl isRequired isInvalid={errors?.shortName}>
+                <FormLabel>Short Name (Nickname)</FormLabel>
+                <Input {...register('shortName')} />
+                <FormErrorMessage>{errors?.shortName?.message}</FormErrorMessage>
+              </FormControl>
+            </Stack>
+            <Stack direction='row'>
               <FormControl isRequired isInvalid={errors?.email}>
                 <FormLabel>Email</FormLabel>
                 <Input {...register('email')} type='email' />
@@ -121,18 +133,6 @@ export default function CreateUser ({ refetch }) {
                 <FormErrorMessage>
                   {errors?.phoneNumber?.message}
                 </FormErrorMessage>
-              </FormControl>
-            </Stack>
-            <Stack direction='row'>
-              <FormControl isRequired isInvalid={errors?.fullName}>
-                <FormLabel>Full Name</FormLabel>
-                <Input {...register('fullName')} />
-                <FormErrorMessage>{errors?.fullName?.message}</FormErrorMessage>
-              </FormControl>
-              <FormControl isRequired isInvalid={errors?.shortName}>
-                <FormLabel>Short Name (Nickname)</FormLabel>
-                <Input {...register('shortName')} />
-                <FormErrorMessage>{errors?.shortName?.message}</FormErrorMessage>
               </FormControl>
             </Stack>
             <Stack direction='row' justifyContent='space-around' alignItems='center' spacing='4'>

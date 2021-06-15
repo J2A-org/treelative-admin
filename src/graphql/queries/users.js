@@ -84,3 +84,19 @@ export const LIST_USER_AVAILABLE_CHILDREN = gql`
     }
   }
 `
+
+export const GET_USER_GENERAL = gql`
+  query GET_USER_GENERAL ($filter: UserUniqueFilter!) {
+    getUser (filter: $filter) {
+      id
+      username
+      email
+      phoneNumber
+      fullName
+      shortName
+      dateOfBirth
+      birthLocation
+      currentLocation
+    }
+  }
+`

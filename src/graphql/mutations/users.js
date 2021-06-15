@@ -62,6 +62,15 @@ export const UPDATE_USER_DATE_OF_BIRTH = gql`
   }
 `
 
+export const UPDATE_USER_BIRTH_LOCATION = gql`
+  mutation UPDATE_USER_BIRTH_LOCATION ($userID: String! $input: UpdateUserInput!) {
+    updateUser(userID: $userID input: $input) {
+      id
+      birthLocation
+    }
+  }
+`
+
 export const UPDATE_USER_CURRENT_LOCATION = gql`
   mutation UPDATE_USER_CURRENT_LOCATION ($userID: String! $input: UpdateUserInput!) {
     updateUser(userID: $userID input: $input) {
@@ -111,6 +120,14 @@ export const DELETE_USER_CHILD = gql`
       children {
         id
       }
+    }
+  }
+`
+
+export const DELETE_USER = gql`
+  mutation DELETE_USER ($userID: String!) {
+    deleteUser(userID: $userID){
+      id
     }
   }
 `

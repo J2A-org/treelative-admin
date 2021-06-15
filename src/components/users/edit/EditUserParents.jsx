@@ -28,7 +28,7 @@ import {
   createStandaloneToast
 } from '@chakra-ui/react'
 
-import { BsTrash } from 'react-icons/bs'
+import { BiTrash } from 'react-icons/bi'
 
 const toast = createStandaloneToast()
 
@@ -116,7 +116,7 @@ function EditUserParentsInline ({ user, refetch, isRefetching }) {
             variant='outline'
             aria-label='Remove Parent One'
             fontSize='20px'
-            icon={<BsTrash />}
+            icon={<BiTrash />}
             onClick={() => handleRemoveParentOne(parentOne.id)}
             isLoading={removeParentOneResult.fetching}
             isDisabled={!parentOne}
@@ -142,7 +142,7 @@ function EditUserParentsInline ({ user, refetch, isRefetching }) {
             variant='outline'
             aria-label='Remove Parent Two'
             fontSize='20px'
-            icon={<BsTrash />}
+            icon={<BiTrash />}
             onClick={() => handleRemoveParentTwo(parentTwo.id)}
             isLoading={removeParentTwoResult.fetching}
             isDisabled={!parentTwo}
