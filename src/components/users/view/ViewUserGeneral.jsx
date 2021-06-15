@@ -36,8 +36,8 @@ export default function ViewUserGeneral ({ user }) {
           <EditUserUsername inline user={result.data.getUser} />
         </FormControl>
         <FormControl>
-          <FormLabel>Date of Birth</FormLabel>
-          <EditUserDateOfBirth inline user={result.data.getUser} />
+          <FormLabel textAlign='right'>Date of Birth</FormLabel>
+          <EditUserDateOfBirth inline user={result.data.getUser} textAlign='right' />
         </FormControl>
       </Stack>
       <Stack direction='row'>
@@ -46,8 +46,8 @@ export default function ViewUserGeneral ({ user }) {
           <EditUserFullName inline user={result.data.getUser} />
         </FormControl>
         <FormControl>
-          <FormLabel>Short Name (Nickname)</FormLabel>
-          <EditUserShortName inline user={result.data.getUser} />
+          <FormLabel textAlign='right'>Short Name (Nickname)</FormLabel>
+          <EditUserShortName inline user={result.data.getUser} textAlign='right' />
         </FormControl>
       </Stack>
       <Stack direction='row'>
@@ -56,8 +56,8 @@ export default function ViewUserGeneral ({ user }) {
           <EditUserEmail inline user={result.data.getUser} />
         </FormControl>
         <FormControl>
-          <FormLabel>Phone Number</FormLabel>
-          <EditUserPhoneNumber inline user={result.data.getUser} />
+          <FormLabel textAlign='right'>Phone Number</FormLabel>
+          <EditUserPhoneNumber inline user={result.data.getUser} textAlign='right' />
         </FormControl>
       </Stack>
       <Stack direction='row'>
@@ -66,8 +66,8 @@ export default function ViewUserGeneral ({ user }) {
           <EditUserBirthLocation inline user={result.data.getUser} />
         </FormControl>
         <FormControl>
-          <FormLabel>Current Location</FormLabel>
-          <EditUserCurrentLocation inline user={result.data.getUser} />
+          <FormLabel textAlign='right'>Current Location</FormLabel>
+          <EditUserCurrentLocation inline user={result.data.getUser} textAlign='right' />
         </FormControl>
       </Stack>
     </Stack>

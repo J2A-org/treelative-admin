@@ -31,7 +31,8 @@ export default function InputDialogTrigger (props) {
     initiallyOpen = false,
     isDisabled = false,
     inline = false,
-    justifyContent = 'left',
+    justifyContent = 'flex-start',
+    textAlign,
     onClose: onParentClose,
     ...inputProps
   } = props
@@ -57,7 +58,7 @@ export default function InputDialogTrigger (props) {
         width='100%'
         onMouseEnter={!inline ? () => setIsVisible(true) : null}
         onMouseLeave={!inline ? () => setIsVisible(false) : null}
-        justifyContent={justifyContent}
+        justifyContent={textAlign === 'right' ? 'flex-end' : justifyContent}
       >
         <Text
           fontSize={inline ? 'md' : 'sm'}
