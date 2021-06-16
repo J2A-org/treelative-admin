@@ -5,7 +5,6 @@ import useDevice from 'hooks/useDevice'
 import {
   getYear,
   getMonth,
-  parseISO,
   eachYearOfInterval
 } from 'date-fns'
 
@@ -140,6 +139,9 @@ function DateTimePickerDialog (props) {
     ...rest
   } = props
 
+  const dt = new Date(value || new Date().toISOString())
+  const dtDateOnly = new Date(dt.valueOf() + dt.getTimezoneOffset() * 60 * 1000)
+
   return (
     <Modal isOpen onClose={onClose} scrollBehavior='inside' size={type === 'date' ? 'sm' : 'lg'}>
       <ModalOverlay />
@@ -154,7 +156,7 @@ function DateTimePickerDialog (props) {
             <DateTimeRenderer value={value} type={type} fontSize={fontSize} fontWeight='bold' />
             <ReactDatePicker
               inline
-              selected={parseISO(value || new Date().toISOString())}
+              selected={type === 'time' ? dt : dtDateOnly}
               onChange={onSubmit}
               showTimeSelect={type === 'time'}
               showYearDropdown
