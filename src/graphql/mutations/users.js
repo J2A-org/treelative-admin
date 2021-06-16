@@ -8,6 +8,12 @@ export const ADD_USER = gql`
   }
 `
 
+export const UPDATE_USER_AVATAR = gql`
+  mutation UPDATE_USER_AVATAR ($userID: String!) {
+    updateUserAvatar(userID: $userID)
+  }
+`
+
 export const UPDATE_USER_USERNAME = gql`
   mutation UPDATE_USER_USERNAME ($userID: String! $input: UpdateUserInput!) {
     updateUser(userID: $userID input: $input) {

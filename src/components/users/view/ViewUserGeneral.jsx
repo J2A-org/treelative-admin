@@ -18,7 +18,7 @@ import { DELETE_USER } from 'graphql/mutations/users'
 import Loading from 'components/_common/Loading'
 import ErrorAlert from 'components/_common/ErrorAlert'
 
-import EditUserUsername from 'components/users/edit/EditUserUsername'
+// import EditUserUsername from 'components/users/edit/EditUserUsername'
 import EditUserDateOfBirth from 'components/users/edit/EditUserDateOfBirth'
 import EditUserEmail from 'components/users/edit/EditUserEmail'
 import EditUserPhoneNumber from 'components/users/edit/EditUserPhoneNumber'
@@ -26,7 +26,7 @@ import EditUserFullName from 'components/users/edit/EditUserFullName'
 import EditUserShortName from 'components/users/edit/EditUserShortName'
 import EditUserBirthLocation from 'components/users/edit/EditUserBirthLocation'
 import EditUserCurrentLocation from 'components/users/edit/EditUserCurrentLocation'
-
+import EditUserAvatar from 'components/users/edit/EditUserAvatar'
 import ResetUserPassword from 'components/users/edit/ResetUserPassword'
 
 const toast = createStandaloneToast()
@@ -65,24 +65,23 @@ export default function ViewUserGeneral ({ user, refetch, onClose }) {
       {resetPassword && <ResetUserPassword user={user} onClose={() => setResetPassword(false)} />}
       <Stack spacing='8'>
         <Stack direction='row'>
-          <FormControl>
-            <FormLabel>Username</FormLabel>
-            <EditUserUsername inline user={result.data.getUser} />
-          </FormControl>
-          <FormControl>
-            <FormLabel textAlign='right'>Date of Birth</FormLabel>
-            <EditUserDateOfBirth inline user={result.data.getUser} textAlign='right' />
-          </FormControl>
-        </Stack>
-        <Stack direction='row'>
-          <FormControl>
-            <FormLabel>Full Name</FormLabel>
-            <EditUserFullName inline user={result.data.getUser} />
-          </FormControl>
-          <FormControl>
-            <FormLabel textAlign='right'>Short Name (Nickname)</FormLabel>
-            <EditUserShortName inline user={result.data.getUser} textAlign='right' />
-          </FormControl>
+          <Stack width='100%' spacing='8'>
+            <FormControl>
+              <FormLabel>Full Name</FormLabel>
+              <EditUserFullName inline user={result.data.getUser} />
+            </FormControl>
+            <FormControl>
+              <FormLabel>Short Name (Nickname)</FormLabel>
+              <EditUserShortName inline user={result.data.getUser} />
+            </FormControl>
+            <FormControl>
+              <FormLabel>Date of Birth</FormLabel>
+              <EditUserDateOfBirth inline user={result.data.getUser} />
+            </FormControl>
+          </Stack>
+          <Stack minW='150px'>
+            <EditUserAvatar user={user} />
+          </Stack>
         </Stack>
         <Stack direction='row'>
           <FormControl>
