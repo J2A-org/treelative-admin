@@ -96,6 +96,7 @@ export const GET_USER_GENERAL = gql`
       fullName
       shortName
       dateOfBirth
+      dateOfDeath
       birthLocation
       currentLocation
     }

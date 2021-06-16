@@ -13,6 +13,7 @@ import {
   Modal,
   Stack,
   Alert,
+  Button,
   ModalBody,
   AlertIcon,
   IconButton,
@@ -48,7 +49,6 @@ export default function DateTimePickerDialogTrigger (props) {
     onChange,
     fontSize,
     textAlign = 'left',
-    noSubmit = false,
     notification = '',
     ...rest
   } = props
@@ -68,7 +68,7 @@ export default function DateTimePickerDialogTrigger (props) {
 
   const handleOnSubmit = async (newValue) => {
     try {
-      onChange(rest.type === 'time' ? newValue.toISOString() : noSubmit ? newValue.toLocaleDateString('en-CA') : newValue.toLocaleDateString('en-CA') + 'T04:00:00.000Z')
+      onChange(newValue)
         .then(result => {
           if (result.data) {
             if (notification) {
@@ -136,6 +136,7 @@ function DateTimePickerDialog (props) {
     subTitle = '',
     fontSize = 'xl',
     type = 'date',
+    isClearable,
     ...rest
   } = props
 
@@ -145,7 +146,7 @@ function DateTimePickerDialog (props) {
   return (
     <Modal isOpen onClose={onClose} scrollBehavior='inside' size={type === 'date' ? 'sm' : 'lg'}>
       <ModalOverlay />
-      <ModalContent pb={!children ? '0' : '6'}>
+      <ModalContent pb={!children ? '2' : '6'}>
         <ModalHeader>
           {title || label}
           <Text fontSize='xs'>{subTitle}</Text>
@@ -169,9 +170,18 @@ function DateTimePickerDialog (props) {
           </Stack>
         </ModalBody>
         <ModalFooter>
-          <Stack spacing='4' width='100%'>
+          <Stack spacing='4' width='100%' alignItems='center'>
             {error && <Alert status='error'> <AlertIcon /> {error.message} </Alert>}
             {children}
+            {isClearable && value && (
+              <Button
+                colorScheme='orange'
+                variant='outline'
+                onClick={() => onSubmit(null)}
+              >
+                Remove Date
+              </Button>
+            )}
           </Stack>
         </ModalFooter>
       </ModalContent>

@@ -68,6 +68,15 @@ export const UPDATE_USER_DATE_OF_BIRTH = gql`
   }
 `
 
+export const UPDATE_USER_DATE_OF_DEATH = gql`
+  mutation UPDATE_USER_DATE_OF_DEATH ($userID: String! $input: UpdateUserInput!) {
+    updateUser(userID: $userID input: $input) {
+      id
+      dateOfDeath
+    }
+  }
+`
+
 export const UPDATE_USER_BIRTH_LOCATION = gql`
   mutation UPDATE_USER_BIRTH_LOCATION ($userID: String! $input: UpdateUserInput!) {
     updateUser(userID: $userID input: $input) {

@@ -23,6 +23,7 @@ import ErrorAlert from 'components/_common/ErrorAlert'
 
 import EditUserUsername from 'components/users/edit/EditUserUsername'
 import EditUserDateOfBirth from 'components/users/edit/EditUserDateOfBirth'
+import EditUserDateOfDeath from 'components/users/edit/EditUserDateOfDeath'
 import EditUserEmail from 'components/users/edit/EditUserEmail'
 import EditUserPhoneNumber from 'components/users/edit/EditUserPhoneNumber'
 import EditUserFullName from 'components/users/edit/EditUserFullName'
@@ -72,6 +73,10 @@ export default function ViewUserGeneral ({ user, refetch, onClose }) {
         <Stack spacing='8' direction={responsive(['column-reverse', 'row'])} alignItems='center'>
           <Stack width='100%' spacing='8'>
             <FormControl>
+              <FormLabel>Username</FormLabel>
+              <EditUserUsername inline user={result.data.getUser} />
+            </FormControl>
+            <FormControl>
               <FormLabel>Short Name (Nickname)</FormLabel>
               <EditUserShortName inline user={result.data.getUser} />
             </FormControl>
@@ -79,18 +84,20 @@ export default function ViewUserGeneral ({ user, refetch, onClose }) {
               <FormLabel>Full Name</FormLabel>
               <EditUserFullName inline user={result.data.getUser} />
             </FormControl>
-            <FormControl>
-              <FormLabel>Date of Birth</FormLabel>
-              <EditUserDateOfBirth inline user={result.data.getUser} />
-            </FormControl>
           </Stack>
           <Stack minW='150px' width={responsive(['100%', ''])} spacing='4' alignSelf='flex-start'>
             <EditUserAvatar user={result.data.getUser} />
-            <FormControl>
-              <FormLabel textAlign={responsive(['', 'right'])}>Username</FormLabel>
-              <EditUserUsername inline user={result.data.getUser} textAlign={responsive(['', 'right'])} />
-            </FormControl>
           </Stack>
+        </Stack>
+        <Stack spacing='8' direction={responsive(['column', 'row'])}>
+          <FormControl>
+            <FormLabel>Date of Birth</FormLabel>
+            <EditUserDateOfBirth inline user={result.data.getUser} />
+          </FormControl>
+          <FormControl>
+            <FormLabel textAlign={responsive(['', 'right'])}>Date of Death</FormLabel>
+            <EditUserDateOfDeath inline user={result.data.getUser} textAlign={responsive(['', 'right'])} />
+          </FormControl>
         </Stack>
         <Stack spacing='8' direction={responsive(['column', 'row'])}>
           <FormControl>
