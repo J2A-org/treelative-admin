@@ -51,7 +51,12 @@ export default function ProfileMenu () {
         >
           <Flex alignItems='center'>
             {isDesktop && <Text fontSize='sm' fontWeight='semibold' mr='2'>{authUser.fullName}</Text>}
-            <Avatar name={authUser.fullName} size={responsive(['md', 'sm'])} bg='blue.500' />
+            <Avatar
+              src={`https://dev.storage.treelative.com/avatar/${authUser.id}.jpg`}
+              name={authUser.fullName}
+              size={responsive(['md', 'sm'])}
+              bg='blue.500'
+            />
           </Flex>
 
         </MenuButton>
