@@ -2,7 +2,7 @@ import React from 'react'
 
 import OpenUser from 'components/users/view/OpenUser'
 
-import EditUserUsername from 'components/users/edit/EditUserUsername'
+// import EditUserUsername from 'components/users/edit/EditUserUsername'
 import EditUserShortName from 'components/users/edit/EditUserShortName'
 import EditUserFullName from 'components/users/edit/EditUserFullName'
 import EditUserDateOfBirth from 'components/users/edit/EditUserDateOfBirth'
@@ -18,13 +18,6 @@ const fields = [
     width: '60px',
     forwardRefetch: true,
     renderTD: (props) => <OpenUser {...props} self />
-  },
-  {
-    key: 'username',
-    label: 'Username',
-    canSort: true,
-    width: '150px',
-    renderTD: EditUserUsername
   },
   {
     key: 'shortName',

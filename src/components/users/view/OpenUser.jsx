@@ -68,7 +68,7 @@ export default function OpenUserTrigger ({ user, refetch, self, edit: EditCompon
 
 function OpenUser ({ user, refetch, onClose }) {
   return (
-    <Modal isOpen onClose={onClose} size='xl' scrollBehavior='inside'>
+    <Modal isOpen onClose={onClose} size='xl' scrollBehavior='inside' closeOnOverlayClick={false}>
       <ModalOverlay />
       <ModalContent minH='400px'>
         <ModalHeader>{user.fullName}</ModalHeader>

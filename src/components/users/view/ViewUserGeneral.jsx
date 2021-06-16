@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 
+import useDevice from 'hooks/useDevice'
+
 import {
   Stack,
   Button,
+  Divider,
   FormLabel,
   FormControl,
   createStandaloneToast
@@ -18,7 +21,7 @@ import { DELETE_USER } from 'graphql/mutations/users'
 import Loading from 'components/_common/Loading'
 import ErrorAlert from 'components/_common/ErrorAlert'
 
-// import EditUserUsername from 'components/users/edit/EditUserUsername'
+import EditUserUsername from 'components/users/edit/EditUserUsername'
 import EditUserDateOfBirth from 'components/users/edit/EditUserDateOfBirth'
 import EditUserEmail from 'components/users/edit/EditUserEmail'
 import EditUserPhoneNumber from 'components/users/edit/EditUserPhoneNumber'
@@ -32,6 +35,8 @@ import ResetUserPassword from 'components/users/edit/ResetUserPassword'
 const toast = createStandaloneToast()
 
 export default function ViewUserGeneral ({ user, refetch, onClose }) {
+  const { responsive } = useDevice()
+
   const [resetPassword, setResetPassword] = useState(false)
 
   const [result] = useQuery({ query: GET_USER_GENERAL, variables: { filter: { id: user.id } } })
@@ -64,49 +69,54 @@ export default function ViewUserGeneral ({ user, refetch, onClose }) {
     <>
       {resetPassword && <ResetUserPassword user={user} onClose={() => setResetPassword(false)} />}
       <Stack spacing='8'>
-        <Stack direction='row'>
+        <Stack spacing='8' direction={responsive(['column-reverse', 'row'])} alignItems='center'>
           <Stack width='100%' spacing='8'>
-            <FormControl>
-              <FormLabel>Full Name</FormLabel>
-              <EditUserFullName inline user={result.data.getUser} />
-            </FormControl>
             <FormControl>
               <FormLabel>Short Name (Nickname)</FormLabel>
               <EditUserShortName inline user={result.data.getUser} />
+            </FormControl>
+            <FormControl>
+              <FormLabel>Full Name</FormLabel>
+              <EditUserFullName inline user={result.data.getUser} />
             </FormControl>
             <FormControl>
               <FormLabel>Date of Birth</FormLabel>
               <EditUserDateOfBirth inline user={result.data.getUser} />
             </FormControl>
           </Stack>
-          <Stack minW='150px'>
-            <EditUserAvatar user={user} />
+          <Stack minW='150px' spacing='4' alignSelf='flex-start'>
+            <EditUserAvatar user={result.data.getUser} />
+            <FormControl>
+              <FormLabel textAlign={responsive(['', 'right'])}>Username</FormLabel>
+              <EditUserUsername inline user={result.data.getUser} textAlign={responsive(['', 'right'])} />
+            </FormControl>
           </Stack>
         </Stack>
-        <Stack direction='row'>
+        <Stack spacing='8' direction={responsive(['column', 'row'])}>
           <FormControl>
             <FormLabel>Email</FormLabel>
             <EditUserEmail inline user={result.data.getUser} />
           </FormControl>
           <FormControl>
-            <FormLabel textAlign='right'>Phone Number</FormLabel>
-            <EditUserPhoneNumber inline user={result.data.getUser} textAlign='right' />
+            <FormLabel textAlign={responsive(['', 'right'])}>Phone Number</FormLabel>
+            <EditUserPhoneNumber inline user={result.data.getUser} textAlign={responsive(['', 'right'])} />
           </FormControl>
         </Stack>
-        <Stack direction='row'>
+        <Stack spacing='8' direction={responsive(['column', 'row'])}>
           <FormControl>
             <FormLabel>Birth Location</FormLabel>
             <EditUserBirthLocation inline user={result.data.getUser} />
           </FormControl>
           <FormControl>
-            <FormLabel textAlign='right'>Current Location</FormLabel>
-            <EditUserCurrentLocation inline user={result.data.getUser} textAlign='right' />
+            <FormLabel textAlign={responsive(['', 'right'])}>Current Location</FormLabel>
+            <EditUserCurrentLocation inline user={result.data.getUser} textAlign={responsive(['', 'right'])} />
           </FormControl>
         </Stack>
-        <Stack width='100%' spacing='4'>
+        <Divider />
+        <Stack width='100%'>
           {deleteUserResult.fetching && <Loading />}
           {deleteUserResult.error && <ErrorAlert> {deleteUserResult.error.message} </ErrorAlert>}
-          <Stack direction='row' justifyContent='space-between'>
+          <Stack spacing='8' direction={responsive(['column', 'row'])} justifyContent='space-between'>
             <Button
               colorScheme='orange'
               variant='outline'

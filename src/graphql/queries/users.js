@@ -4,7 +4,7 @@ export const QUERY_USER = gql`
   query QUERY_USER ($where: UserFilter $orderBy: [UserOrder!] $take: Int $skip: Int) {
     allData: queryUser (where: $where orderBy: $orderBy take: $take skip: $skip) {
       id
-      username
+      shortName
       fullName
       dateOfBirth
       parents {
@@ -34,7 +34,7 @@ export const GET_USER_FAMILY = gql`
   query GET_USER_FAMILY ($userID: String!) {
     allData: getUserFamily (userID: $userID) {
       id
-      username
+      shortName
       fullName
       dateOfBirth
       parents {

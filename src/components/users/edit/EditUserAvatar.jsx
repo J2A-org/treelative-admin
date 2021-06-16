@@ -4,6 +4,7 @@ import { useMutation } from 'urql'
 import { UPDATE_USER_AVATAR } from 'graphql/mutations/users'
 
 import {
+  Box,
   Image,
   Stack,
   Button,
@@ -94,19 +95,30 @@ export default function EditUserAvatar ({ user }) {
         onChange={handleFileSelect}
         accept='image/png, image/jpeg, image/jpg, image/gif'
       />
-      <Image
-        src={avatarURL}
-        fallbackSrc='https://www.rogowaylaw.com/wp-content/uploads/Blank-Employee.jpg'
-        height='150px'
-        width='150px'
-        borderRadius='20px'
-        alt={user.fullName}
-      />
-      <FormLabel htmlFor='avatar'>
-        <Button as='span' isLoading={isLoading} minW='120px'>
-          Replace
-        </Button>
-      </FormLabel>
+      <Box position='relative'>
+        <Image
+          src={avatarURL}
+          fallbackSrc='https://www.rogowaylaw.com/wp-content/uploads/Blank-Employee.jpg'
+          boxSize='150px'
+          borderRadius='full'
+          alt={user.fullName}
+        />
+        <FormLabel htmlFor='avatar' position='absolute' top='95px' left='25px'>
+          <Button
+            as='span'
+            size='sm'
+            cursor='pointer'
+            isLoading={isLoading}
+            minW='100px'
+            bg='#00000045'
+            _hover={{
+              bg: '#00000085'
+            }}
+          >
+            Replace
+          </Button>
+        </FormLabel>
+      </Box>
     </Stack>
   )
 }

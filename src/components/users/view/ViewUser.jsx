@@ -16,7 +16,7 @@ import EditUserChildren from 'components/users/edit/EditUserChildren'
 export default function ViewUser ({ user, refetch, onClose }) {
   return (
     <Tabs isLazy isFitted>
-      <TabList>
+      <TabList overflowX='auto' overflowY='hidden' pb='1'>
         <Tab>General</Tab>
         <Tab>Partner</Tab>
         <Tab>Parents</Tab>
