@@ -4,6 +4,7 @@ import useDevice from 'hooks/useDevice'
 
 import {
   Text,
+  Link,
   Stack,
   Input,
   Textarea,
@@ -33,6 +34,7 @@ export default function InputDialogTrigger (props) {
     inline = false,
     justifyContent = 'flex-start',
     textAlign,
+    fontSize,
     onClose: onParentClose,
     ...inputProps
   } = props
@@ -49,6 +51,9 @@ export default function InputDialogTrigger (props) {
 
   if (initiallyOpen) return <InputDialog {...inputProps} onClose={onParentClose} />
 
+  const ViewElement = inputProps.type === 'link' ? Link : Text
+  const linkProps = inputProps.type === 'link' ? { href: inputProps.value, target: '_blank', rel: 'noopener noreferrer' } : {}
+
   return (
     <>
       {isOpen && <InputDialog {...inputProps} onClose={onClose} />}
@@ -60,14 +65,15 @@ export default function InputDialogTrigger (props) {
         onMouseLeave={!inline ? () => setIsVisible(false) : null}
         justifyContent={textAlign === 'right' ? 'flex-end' : justifyContent}
       >
-        <Text
-          fontSize={inline ? 'md' : 'sm'}
+        <ViewElement
+          fontSize={fontSize || inline ? (fontSize || 'md') : 'sm'}
           overflowX='hidden'
           ml={marginOffset}
           {...touchDeviceProps}
+          {...linkProps}
         >
           {inputProps.value || '-'}
-        </Text>
+        </ViewElement>
         {isVisible && (
           <IconButton
             size={inline ? 'sm' : 'xs'}

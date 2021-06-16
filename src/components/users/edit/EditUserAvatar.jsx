@@ -16,7 +16,7 @@ import {
 const toast = createStandaloneToast()
 
 export default function EditUserAvatar ({ user }) {
-  const [avatarURL, setAvatarURL] = useState(`https://dev.storage.treelative.com/avatar/${user.id}.jpg`)
+  const [avatarURL, setAvatarURL] = useState(user.avatar)
 
   const [, updateUserAvatar] = useMutation(UPDATE_USER_AVATAR)
 

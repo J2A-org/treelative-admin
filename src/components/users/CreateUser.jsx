@@ -3,8 +3,6 @@ import React, { useState, useEffect } from 'react'
 import { ADD_USER } from 'graphql/mutations/users'
 import { useMutation } from 'urql'
 
-import { startOfToday } from 'date-fns'
-
 import {
   Input,
   Stack,
@@ -51,8 +49,7 @@ export default function CreateUser ({ refetch }) {
   const [{ error, fetching }, createUser] = useMutation(ADD_USER)
 
   const { register, handleSubmit, formState: { errors }, reset: resetForm, setFocus, setValue, getValues, watch } = useForm({
-    resolver: yupResolver(schemaValidation),
-    defaultValues: { dateOfBirth: startOfToday().toISOString() }
+    resolver: yupResolver(schemaValidation)
   })
   watch(['dateOfBirth', 'birthLocation', 'currentLocation'])
 
@@ -122,7 +119,7 @@ export default function CreateUser ({ refetch }) {
               </FormControl>
             </Stack>
             <Stack direction='row'>
-              <FormControl isRequired isInvalid={errors?.email}>
+              <FormControl isInvalid={errors?.email}>
                 <FormLabel>Email</FormLabel>
                 <Input {...register('email')} type='email' />
                 <FormErrorMessage>{errors?.email?.message}</FormErrorMessage>
@@ -139,6 +136,7 @@ export default function CreateUser ({ refetch }) {
               <FormControl isRequired maxW='200px'>
                 <FormLabel>Date of Birth</FormLabel>
                 <DateTimePicker
+                  inline
                   type='date'
                   label='Date of Birth'
                   value={getValues('dateOfBirth')}

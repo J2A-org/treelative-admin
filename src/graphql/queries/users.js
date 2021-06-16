@@ -90,6 +90,7 @@ export const GET_USER_GENERAL = gql`
     getUser (filter: $filter) {
       id
       username
+      avatar
       email
       phoneNumber
       fullName
@@ -97,6 +98,19 @@ export const GET_USER_GENERAL = gql`
       dateOfBirth
       birthLocation
       currentLocation
+    }
+  }
+`
+
+export const GET_USER_SOCIAL = gql`
+  query GET_USER_SOCIAL ($filter: UserUniqueFilter!) {
+    getUser (filter: $filter) {
+      id
+      socialLinks {
+        id
+        type
+        url
+      }
     }
   }
 `

@@ -12,6 +12,7 @@ import ViewUserGeneral from 'components/users/view/ViewUserGeneral'
 import EditUserPartner from 'components/users/edit/EditUserPartner'
 import EditUserParents from 'components/users/edit/EditUserParents'
 import EditUserChildren from 'components/users/edit/EditUserChildren'
+import ViewUserSocialLinks from 'components/users/view/ViewUserSocialLinks'
 
 export default function ViewUser ({ user, refetch, onClose }) {
   return (
@@ -21,6 +22,7 @@ export default function ViewUser ({ user, refetch, onClose }) {
         <Tab>Partner</Tab>
         <Tab>Parents</Tab>
         <Tab>Children</Tab>
+        <Tab>Social</Tab>
         <Tab>Settings</Tab>
       </TabList>
 
@@ -36,6 +38,9 @@ export default function ViewUser ({ user, refetch, onClose }) {
         </TabPanel>
         <TabPanel>
           <EditUserChildren inline user={user} refetch={refetch} />
+        </TabPanel>
+        <TabPanel>
+          <ViewUserSocialLinks user={user} />
         </TabPanel>
         <TabPanel>
           TODO

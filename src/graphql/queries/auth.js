@@ -5,6 +5,7 @@ export const WHO_AM_I = gql`
     whoAmI {
       id
       username
+      avatar
       role
       fullName
     }

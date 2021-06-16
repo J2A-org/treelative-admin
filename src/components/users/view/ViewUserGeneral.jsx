@@ -84,7 +84,7 @@ export default function ViewUserGeneral ({ user, refetch, onClose }) {
               <EditUserDateOfBirth inline user={result.data.getUser} />
             </FormControl>
           </Stack>
-          <Stack minW='150px' spacing='4' alignSelf='flex-start'>
+          <Stack minW='150px' width={responsive(['100%', ''])} spacing='4' alignSelf='flex-start'>
             <EditUserAvatar user={result.data.getUser} />
             <FormControl>
               <FormLabel textAlign={responsive(['', 'right'])}>Username</FormLabel>
