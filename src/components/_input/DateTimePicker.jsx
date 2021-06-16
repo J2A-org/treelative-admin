@@ -47,7 +47,7 @@ export default function DateTimePickerDialogTrigger (props) {
     inline = false,
     justifyContent = 'flex-start',
     onChange,
-    fontSize = 'md',
+    fontSize,
     textAlign = 'left',
     noSubmit = false,
     notification = '',
