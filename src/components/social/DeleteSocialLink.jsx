@@ -29,13 +29,22 @@ export default function DeleteSocialLink ({ socialLink, refetch }) {
           })
           refetch()
         }
+        if (result.error) {
+          toast({
+            title: result.error.message,
+            status: 'error',
+            position: 'top',
+            duration: 6000,
+            isClosable: true
+          })
+        }
       })
       .catch(error => {
         toast({
           title: error.message,
           status: 'error',
           position: 'top',
-          duration: 8000,
+          duration: 6000,
           isClosable: true
         })
       })

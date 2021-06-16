@@ -55,12 +55,13 @@ export default function CreateUser ({ refetch }) {
 
   useEffect(() => { isOpen && setTimeout(() => setFocus('username'), 1) }, [isOpen])
 
-  const onSubmit = ({ birthLocation, currentLocation, ...rest }) => {
+  const onSubmit = ({ birthLocation, currentLocation, email, ...rest }) => {
     const input = {
       ...rest,
       birthLocation: birthLocation?.value,
       currentLocation: currentLocation?.value
     }
+    if (email) input.email = email
     createUser({ input })
       .then(async result => {
         if (result.data) {

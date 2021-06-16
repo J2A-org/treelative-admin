@@ -62,7 +62,7 @@ function EditUserPartnerInline ({ user, refetch, isRefetching }) {
         <FormLabel>Partner</FormLabel>
         <UserSelection
           autoFocus
-          isDisabled={result.fetching}
+          isDisabled={result.fetching || user?.couple?.partner?.id}
           key={`partner_key__${JSON.stringify(user?.couple?.partner?.id ? { label: user?.couple?.partner?.fullName, value: user?.couple?.partner?.id } : undefined)}`}
           query={LIST_USER_AVAILABLE_PARTNERS}
           variables={{ userID: user.id }}

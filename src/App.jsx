@@ -8,7 +8,7 @@ import Login from 'pages/Login.jsx'
 import ResetPassword from 'pages/ResetPassword.jsx'
 
 const routes = {
-  '/': [Users, { title: 'Treelative Admin', isAdminOnly: true }],
+  '/': [Users, { title: 'Treelative Admin' }],
   '/login': [Login, { title: 'Login', isPublic: true }],
   '/resetPassword/:hash': [ResetPassword, { title: 'Reset Password', isPublic: true }]
 }
