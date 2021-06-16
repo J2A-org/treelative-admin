@@ -115,3 +115,11 @@ export const GET_USER_SOCIAL = gql`
     }
   }
 `
+export const GET_USER_SETTINGS = gql`
+  query GET_USER_SETTINGS ($filter: UserUniqueFilter!) {
+    getUser (filter: $filter) {
+      id
+      settings
+    }
+  }
+`

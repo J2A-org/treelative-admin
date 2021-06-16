@@ -147,6 +147,15 @@ export const RESET_USER_PASSWORD = gql`
   }
 `
 
+export const UPDATE_USER_SETTINGS = gql`
+  mutation UPDATE_USER_SETTINGS ($userID: String! $input: UpdateUserInput!) {
+    updateUser(userID: $userID input: $input) {
+      id
+      settings
+    }
+  }
+`
+
 export const DELETE_USER = gql`
   mutation DELETE_USER ($userID: String!) {
     deleteUser(userID: $userID){

@@ -13,6 +13,7 @@ import EditUserPartner from 'components/users/edit/EditUserPartner'
 import EditUserParents from 'components/users/edit/EditUserParents'
 import EditUserChildren from 'components/users/edit/EditUserChildren'
 import ViewUserSocialLinks from 'components/users/view/ViewUserSocialLinks'
+import ViewUserSettings from 'components/users/view/ViewUserSettings'
 
 export default function ViewUser ({ user, refetch, onClose }) {
   return (
@@ -43,8 +44,7 @@ export default function ViewUser ({ user, refetch, onClose }) {
           <ViewUserSocialLinks user={user} />
         </TabPanel>
         <TabPanel>
-          TODO
-          Notifications & Privacy settings
+          <ViewUserSettings user={user} />
         </TabPanel>
       </TabPanels>
     </Tabs>

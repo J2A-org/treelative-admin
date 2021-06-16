@@ -11,7 +11,6 @@ export default function Logout () {
 
   const onLogout = () => {
     window.localStorage.removeItem('AUTH_SESSION_ID')
-    window.localStorage.removeItem('ACTIVE_STORE')
     window.location.href = '/login'
   }
 
