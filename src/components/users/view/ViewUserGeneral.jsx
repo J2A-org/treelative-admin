@@ -131,7 +131,7 @@ export default function ViewUserGeneral ({ user, refetch, onClose }) {
               onClick={onDeleteUser}
               isLoading={deleteUserResult.fetching}
             >
-              Delete User
+              Delete Account
             </Button>
           </Stack>
         </Stack>

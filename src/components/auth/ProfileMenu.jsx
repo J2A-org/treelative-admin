@@ -22,6 +22,7 @@ import { RiLockPasswordLine } from 'react-icons/ri'
 import { FiSettings, FiLogOut } from 'react-icons/fi'
 import { MdNotificationsNone } from 'react-icons/md'
 
+import ViewMyProfile from 'components/auth/ViewMyProfile'
 import ResetUserPassword from 'components/users/edit/ResetUserPassword'
 
 export default function ProfileMenu () {
@@ -29,6 +30,7 @@ export default function ProfileMenu () {
 
   const authUser = useAuthUser()
 
+  const [viewProfile, setViewProfile] = useState(false)
   const [resetPassword, setResetPassword] = useState(false)
 
   const onLogout = () => {
@@ -39,6 +41,7 @@ export default function ProfileMenu () {
 
   return (
     <>
+      {viewProfile && <ViewMyProfile user={authUser} onClose={() => setViewProfile(false)} />}
       {resetPassword && <ResetUserPassword user={authUser} onClose={() => setResetPassword(false)} />}
       <Menu isLazy placement='bottom-end'>
         <MenuButton
@@ -62,7 +65,7 @@ export default function ProfileMenu () {
         </MenuButton>
         <MenuList zIndex='2'>
           <MenuGroup title='Account'>
-            <MenuItem icon={<CgProfile />} onClick={() => { }}>My Profile</MenuItem>
+            <MenuItem icon={<CgProfile />} onClick={() => setViewProfile(true)}>My Profile</MenuItem>
             <MenuItem icon={<RiLockPasswordLine />} onClick={() => setResetPassword(true)}>Reset Password</MenuItem>
           </MenuGroup>
           <MenuGroup title='Settings'>
