@@ -102,14 +102,14 @@ export default function ViewUserGeneral ({ user, refetch, onClose }) {
             <EditUserPhoneNumber inline user={result.data.getUser} textAlign={responsive(['', 'right'])} />
           </FormControl>
         </Stack>
-        <Stack spacing='8' direction={responsive(['column', 'row'])}>
+        <Stack spacing='8'>
           <FormControl>
             <FormLabel>Birth Location</FormLabel>
             <EditUserBirthLocation inline user={result.data.getUser} />
           </FormControl>
           <FormControl>
-            <FormLabel textAlign={responsive(['', 'right'])}>Current Location</FormLabel>
-            <EditUserCurrentLocation inline user={result.data.getUser} textAlign={responsive(['', 'right'])} />
+            <FormLabel>Current Location</FormLabel>
+            <EditUserCurrentLocation inline user={result.data.getUser} />
           </FormControl>
         </Stack>
         <Divider />
