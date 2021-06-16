@@ -39,6 +39,7 @@ export default function ViewUser ({ user, refetch, onClose }) {
         </TabPanel>
         <TabPanel>
           TODO
+          Notifications & Privacy settings
         </TabPanel>
       </TabPanels>
     </Tabs>

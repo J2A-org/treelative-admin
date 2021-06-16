@@ -154,8 +154,8 @@ function EditUserParentsInline ({ user, refetch, isRefetching }) {
       <Alert status='warning' borderRadius='lg'>
         <AlertIcon />
         <AlertDescription>
-          {!parentOne && 'A parent with a partner will automatically be added as the second parent'}
-          {parentOne && 'Selecting a new parent with a partner will automatically be added as the second parent'}
+          {!parentOne && 'A parent\'s partner will automatically be added as the second parent'}
+          {parentOne && 'Selecting a new parent will automatically added his/her partner as the second parent'}
         </AlertDescription>
       </Alert>
     </Stack>
