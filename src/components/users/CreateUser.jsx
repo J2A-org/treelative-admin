@@ -149,6 +149,7 @@ export default function CreateUser ({ refetch }) {
               <FormControl>
                 <FormLabel>Birth Location</FormLabel>
                 <GooglePlacesSelect
+                  menuPlacement='top'
                   value={getValues('birthLocation')}
                   onChange={birthLocation => setValue('birthLocation', birthLocation)}
                 />
