@@ -68,7 +68,7 @@ function EditUserPartnerInline ({ user, refetch, isRefetching }) {
           variables={{ userID: user.id }}
           value={user?.couple?.partner?.id ? { label: user?.couple?.partner?.fullName, value: user?.couple?.partner?.id } : undefined}
           onChange={handleOnChange}
-          placeholder='Select a Partner'
+          placeholder='Search a Partner'
         />
       </FormControl>
       {(result.fetching || isRefetching) && <Loading />}

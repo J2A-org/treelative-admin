@@ -97,7 +97,7 @@ function EditUserChildrenInline ({ user, refetch, isRefetching }) {
           key={`children_key__${JSON.stringify(user?.children?.length > 0 ? user?.children.map(child => ({ label: child?.fullName, value: child?.id })) : undefined)}`}
           value={user?.children ? user?.children.map(child => ({ label: child?.fullName, value: child?.id })) : undefined}
           onChange={handleOnChange}
-          placeholder='Select Children'
+          placeholder='Search Children'
         />
       </FormControl>
       {(result.fetching || isRefetching) && <Loading />}

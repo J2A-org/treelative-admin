@@ -107,7 +107,7 @@ function EditUserParentsInline ({ user, refetch, isRefetching }) {
               key={`parentOne_key__${JSON.stringify(parentOne ? { label: parentOne.fullName, value: parentOne.id } : undefined)}`}
               value={parentOne ? { label: parentOne.fullName, value: parentOne.id } : undefined}
               onChange={handleOnChange}
-              placeholder='Select Parent One'
+              placeholder='Search Parent One'
               filterUsers={({ value }) => value !== user.id}
             />
           </Stack>
@@ -133,7 +133,7 @@ function EditUserParentsInline ({ user, refetch, isRefetching }) {
               key={`parentTwo_key__${JSON.stringify(parentTwo ? { label: parentTwo.fullName, value: parentTwo.id } : undefined)}`}
               value={parentTwo ? { label: parentTwo.fullName, value: parentTwo.id } : undefined}
               onChange={handleOnChange}
-              placeholder='Select Parent Two'
+              placeholder='Search Parent Two'
               filterUsers={({ value }) => value !== user.id}
             />
           </Stack>
