@@ -134,7 +134,7 @@ export default function CreateUser ({ refetch }) {
               </FormControl>
             </Stack>
             <Stack direction='row' justifyContent='space-around' alignItems='center' spacing='4'>
-              <FormControl isRequired maxW='200px'>
+              <FormControl maxW='200px'>
                 <FormLabel>Date of Birth</FormLabel>
                 <DateTimePicker
                   inline
@@ -157,6 +157,7 @@ export default function CreateUser ({ refetch }) {
             <FormControl>
               <FormLabel>Current Location</FormLabel>
               <GooglePlacesSelect
+                menuPlacement='top'
                 value={getValues('currentLocation')}
                 onChange={currentLocation => setValue('currentLocation', currentLocation)}
               />

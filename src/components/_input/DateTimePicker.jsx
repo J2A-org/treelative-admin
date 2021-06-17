@@ -85,6 +85,9 @@ export default function DateTimePickerDialogTrigger (props) {
         })
         .catch(console.log)
     } catch (e) {
+      if (!(onChange instanceof Promise)) {
+        onClose()
+      }
       console.log(e.message)
     }
   }
