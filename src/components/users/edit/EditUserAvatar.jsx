@@ -98,7 +98,7 @@ export default function EditUserAvatar ({ user }) {
       <Box position='relative'>
         <Image
           src={avatarURL}
-          fallbackSrc={`https://picsum.photos/200?${user.id}`}
+          fallbackSrc='https://www.rogowaylaw.com/wp-content/uploads/Blank-Employee.jpg'
           boxSize='150px'
           borderRadius='full'
           alt={user.fullName}
