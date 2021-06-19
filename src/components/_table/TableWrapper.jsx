@@ -68,7 +68,7 @@ export default function TableWrapper (props) {
   useEffect(() => {
     if (hasInitiallyLoaded) {
       if (!result.fetching && result?.data?.allData) {
-        !isRefetching && handleRefetch()
+        !isRefetching && !isFetchingMore && handleRefetch()
       }
     }
   }, [result.data, hasInitiallyLoaded])

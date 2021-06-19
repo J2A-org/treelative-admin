@@ -74,7 +74,7 @@ export default function DataTable (props) {
           </Flex>
         </Flex>
       )}
-      <Box height={responsive(['calc(100% - 205px)', 'calc(100% - 150px)'])} overflow='auto'>
+      <Box height={responsive(['calc(100% - 215px)', 'calc(100% - 160px)'])} overflow='auto'>
         <Grid as='table' gridTemplateColumns={generateGridTemplateColumns(filteredFields)}>
           <Box as='thead' display='contents'>
             <Box as='tr' display='contents'>
@@ -123,7 +123,7 @@ export default function DataTable (props) {
           </Box>
         </Grid>
       </Box>
-      <Stack direction={responsive(['column', 'row'])} alignItems='center' mt={isEmbedded && rows.length < 10 ? '12' : '1'}>
+      <Stack direction={responsive(['column', 'row'])} alignItems='center' mt={isEmbedded && rows.length < 10 ? '12' : '1'} bg='blue.50' py='2' px='2' borderRadius='lg'>
         {totalCount > 0 && (
           <Stack justifyContent='space-evenly' direction='row' minW={responsive(['100%', '300px'])}>
             <Text fontSize='sm'>Showing: <strong>{rows.length}</strong></Text>
