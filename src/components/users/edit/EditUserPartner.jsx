@@ -118,7 +118,7 @@ export function EditUserPartnerDialog ({ user, refetch, isRefetching, onClose })
   return (
     <Modal isOpen onClose={onClose} size='sm' scrollBehavior='inside' closeOnOverlayClick={false}>
       <ModalOverlay />
-      <ModalContent pb='2' minH='300px'>
+      <ModalContent pb='2' minH='400px'>
         <ModalHeader>
           Edit Partner
           <Text fontSize='xs'>{user.fullName}</Text>

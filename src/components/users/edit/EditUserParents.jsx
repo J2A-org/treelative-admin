@@ -129,6 +129,7 @@ function EditUserParentsInline ({ user, refetch, isRefetching }) {
         <Stack direction='row' justifyContent='space-between' alignItems='center'>
           <Stack flex='1'>
             <UserSelection
+              menuPlacement='top'
               isDisabled={!parentOne || result.fetching || isRefetching || removeParentTwoResult.fetching}
               key={`parentTwo_key__${JSON.stringify(parentTwo ? { label: parentTwo.fullName, value: parentTwo.id } : undefined)}`}
               value={parentTwo ? { label: parentTwo.fullName, value: parentTwo.id } : undefined}
@@ -179,7 +180,7 @@ export function EditUserParentsDialog ({ user, refetch, isRefetching, onClose })
   return (
     <Modal isOpen onClose={onClose} size='md' scrollBehavior='inside' closeOnOverlayClick={false}>
       <ModalOverlay />
-      <ModalContent pb='2' minH='300px'>
+      <ModalContent pb='2' minH='400px'>
         <ModalHeader>
           Edit Parents
           <Text fontSize='xs'>{user.fullName}</Text>
