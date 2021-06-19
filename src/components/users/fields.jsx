@@ -41,6 +41,13 @@ const fields = [
     renderTD: EditUserDateOfBirth
   },
   {
+    key: 'partner',
+    label: 'Partner',
+    forwardRefetch: true,
+    justifyContent: 'center',
+    renderTD: EditUserPartner
+  },
+  {
     key: 'parents',
     label: 'Parents',
     forwardRefetch: true,
@@ -53,13 +60,6 @@ const fields = [
     forwardRefetch: true,
     justifyContent: 'center',
     renderTD: EditUserChildren
-  },
-  {
-    key: 'partner',
-    label: 'Partner',
-    forwardRefetch: true,
-    justifyContent: 'center',
-    renderTD: EditUserPartner
   },
   {
     key: 'family',
