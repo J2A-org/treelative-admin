@@ -49,6 +49,7 @@ export default function UserSelection (props) {
         {...rest}
         placeholder={placeholder}
         loadOptions={loadUsers}
+        noOptionsMessage={() => 'No users matching search '}
       />
     </Stack>
 

@@ -17,7 +17,6 @@ import {
 import { FaPlus } from 'react-icons/fa'
 
 import FormDialog from 'components/_common/FormDialog'
-import PasswordInput from 'components/_input/PasswordInput'
 import DateTimePicker from 'components/_input/DateTimePicker'
 import GooglePlacesSelect from 'components/_select/GooglePlacesSelect'
 
@@ -28,8 +27,6 @@ import { object, string } from 'yup'
 const toast = createStandaloneToast()
 
 const schemaValidation = object().shape({
-  username: string().required(),
-  password: string().required().min(3),
   email: string().email(),
   phoneNumber: string().matches(/^\+?\d{10,14}$/, { message: 'Invalid Phone Number', excludeEmptyString: true }),
   fullName: string().required(),
@@ -53,7 +50,7 @@ export default function CreateUser ({ refetch }) {
   })
   watch(['dateOfBirth', 'birthLocation', 'currentLocation'])
 
-  useEffect(() => { isOpen && setTimeout(() => setFocus('username'), 1) }, [isOpen])
+  useEffect(() => { isOpen && setTimeout(() => setFocus('fullName'), 1) }, [isOpen])
 
   const onSubmit = ({ birthLocation, currentLocation, email, ...rest }) => {
     const input = {
@@ -95,18 +92,6 @@ export default function CreateUser ({ refetch }) {
           onSubmit={handleSubmit(onSubmit)}
         >
           <Stack spacing='8'>
-            <Stack direction='row'>
-              <FormControl isRequired isInvalid={errors?.username}>
-                <FormLabel>Username</FormLabel>
-                <Input {...register('username')} type='username' />
-                <FormErrorMessage>{errors?.username?.message}</FormErrorMessage>
-              </FormControl>
-              <FormControl isRequired isInvalid={errors?.password}>
-                <FormLabel>Password</FormLabel>
-                <PasswordInput {...register('password')} />
-                <FormErrorMessage>{errors?.password?.message}</FormErrorMessage>
-              </FormControl>
-            </Stack>
             <Stack direction='row'>
               <FormControl isRequired isInvalid={errors?.fullName}>
                 <FormLabel>Full Name</FormLabel>
