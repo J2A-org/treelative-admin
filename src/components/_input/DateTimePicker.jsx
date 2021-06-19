@@ -144,7 +144,7 @@ function DateTimePickerDialog (props) {
   } = props
 
   const dt = new Date(value || new Date().toISOString())
-  const dtDateOnly = new Date(dt.valueOf() + dt.getTimezoneOffset() * 60 * 1000)
+  const dtDateOnly = value ? new Date(dt.valueOf() + dt.getTimezoneOffset() * 60 * 1000) : dt
 
   return (
     <Modal isOpen onClose={onClose} scrollBehavior='inside' size={type === 'date' ? 'sm' : 'lg'}>
