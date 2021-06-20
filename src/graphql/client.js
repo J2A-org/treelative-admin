@@ -5,11 +5,18 @@ import {
 } from 'urql'
 import { cacheExchange } from '@urql/exchange-graphcache'
 
+import { simplePagination } from '@urql/exchange-graphcache/extras'
+
 import { devtoolsExchange } from '@urql/devtools'
 
 const cache = cacheExchange({
   keys: {
     Couple: () => null
+  },
+  resolvers: {
+    Query: {
+      queryUser: simplePagination()
+    }
   }
 })
 

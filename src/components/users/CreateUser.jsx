@@ -62,7 +62,6 @@ export default function CreateUser ({ refetch }) {
     createUser({ input })
       .then(async result => {
         if (result.data) {
-          refetch()
           toast({
             title: 'Successfully created the user',
             status: 'success',
@@ -71,6 +70,7 @@ export default function CreateUser ({ refetch }) {
             isClosable: true
           })
           handleClose()
+          refetch()
         }
       })
       .catch(setInternalError)
