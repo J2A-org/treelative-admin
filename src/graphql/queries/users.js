@@ -10,10 +10,12 @@ export const QUERY_USER = gql`
       parents {
         id
         fullName
+        avatar
       }
       children {
         id
         fullName
+        avatar
       }
       couple {
         id
@@ -22,7 +24,13 @@ export const QUERY_USER = gql`
         partner {
           id
           fullName
+          avatar
         }
+      }
+      family {
+        id
+        fullName
+        avatar
       }
     }
     filteredCount: countUser (where: $where)
@@ -40,10 +48,12 @@ export const GET_USER_FAMILY = gql`
       parents {
         id
         fullName
+        avatar
       }
       children {
         id
         fullName
+        avatar
       }
       couple {
         id
@@ -52,6 +62,7 @@ export const GET_USER_FAMILY = gql`
         partner {
           id
           fullName
+          avatar
         }
       }
     }

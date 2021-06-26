@@ -13,12 +13,14 @@ import {
   Modal,
   Stack,
   Alert,
+  Avatar,
   Button,
   FormLabel,
   ModalBody,
   AlertIcon,
   IconButton,
   ModalHeader,
+  AvatarGroup,
   FormControl,
   ModalOverlay,
   ModalContent,
@@ -166,11 +168,17 @@ function EditUserParentsInline ({ user, refetch, isRefetching }) {
 function EditUserParentsTrigger (props) {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
+  const { parents } = props.user
+
   return (
     <>
       {isOpen && <EditUserParentsDialog {...props} onClose={onClose} />}
-      <Button isFullWidth onClick={onOpen} size='xs' variant='outline'>
-        Parents
+      <Button isFullWidth onClick={onOpen} variant='outline' size='sm'>
+        <AvatarGroup size='xs'>
+          {parents.map(parent => (
+            <Avatar key={parent.id} size='xs' name={parent.fullName} src={parent.avatar} />
+          ))}
+        </AvatarGroup>
       </Button>
     </>
   )

@@ -11,7 +11,9 @@ import fields from 'components/users/fields'
 import {
   Modal,
   Button,
+  Avatar,
   ModalBody,
+  AvatarGroup,
   ModalHeader,
   ModalOverlay,
   ModalContent,
@@ -44,11 +46,17 @@ function ViewUserFamilyInline ({ user }) {
 function OpenUserFamilyTrigger ({ user }) {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
+  const { family } = user
+
   return (
     <>
       {isOpen && <OpenUserFamily user={user} onClose={onClose} />}
-      <Button isFullWidth onClick={onOpen} size='xs' variant='outline'>
-        Family Members
+      <Button isFullWidth onClick={onOpen} variant='outline' size='sm'>
+        <AvatarGroup size='xs'>
+          {family.map(member => (
+            <Avatar key={member.id} name={member.fullName} src={member.avatar} />
+          ))}
+        </AvatarGroup>
       </Button>
     </>
   )

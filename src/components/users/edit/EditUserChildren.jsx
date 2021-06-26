@@ -14,10 +14,12 @@ import {
   Text,
   Modal,
   Stack,
+  Avatar,
   Button,
   ModalBody,
   FormLabel,
   ModalHeader,
+  AvatarGroup,
   FormControl,
   ModalOverlay,
   ModalContent,
@@ -108,14 +110,20 @@ function EditUserChildrenInline ({ user, refetch, isRefetching }) {
   )
 }
 
-function EditUserChildrenTrigger ({ user, refetch, isRefetching }) {
+function EditUserChildrenTrigger (props) {
   const { isOpen, onOpen, onClose } = useDisclosure()
+
+  const { children } = props.user
 
   return (
     <>
-      {isOpen && <EditUserChildrenDialog user={user} refetch={refetch} isRefetching={isRefetching} onClose={onClose} />}
-      <Button isFullWidth onClick={onOpen} size='xs' variant='outline'>
-        {user?.children?.length || '0'} Children
+      {isOpen && <EditUserChildrenDialog {...props} onClose={onClose} />}
+      <Button isFullWidth onClick={onOpen} variant='outline' size='sm'>
+        <AvatarGroup size='xs'>
+          {children.map(child => (
+            <Avatar key={child.id} name={child.fullName} src={child.avatar} />
+          ))}
+        </AvatarGroup>
       </Button>
     </>
   )
@@ -123,7 +131,7 @@ function EditUserChildrenTrigger ({ user, refetch, isRefetching }) {
 
 export function EditUserChildrenDialog ({ user, refetch, isRefetching, onClose }) {
   return (
-    <Modal isOpen onClose={onClose} size='md' scrollBehavior='inside' closeOnOverlayClick={false}>
+    <Modal isOpen onClose={onClose} size='md' closeOnOverlayClick={false}>
       <ModalOverlay />
       <ModalContent pb='2' minH='500px'>
         <ModalHeader>

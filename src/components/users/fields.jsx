@@ -51,6 +51,7 @@ const fields = [
     key: 'parents',
     label: 'Parents',
     forwardRefetch: true,
+    width: '120px',
     justifyContent: 'center',
     renderTD: EditUserParents
   },
