@@ -4,6 +4,7 @@ import UserSelection from 'components/users/UserSelection'
 
 import { useMutation } from 'urql'
 import { ADD_USER_PARENT, DELETE_USER_PARENT } from 'graphql/mutations/users'
+import { LIST_USER_AVAILABLE_PARENTS } from 'graphql/queries/users'
 
 import Loading from 'components/_common/Loading'
 import ErrorAlert from 'components/_common/ErrorAlert'
@@ -105,6 +106,8 @@ function EditUserParentsInline ({ user, refetch, isRefetching }) {
           <Stack flex='1'>
             <UserSelection
               autoFocus
+              query={LIST_USER_AVAILABLE_PARENTS}
+              variables={{ userID: user.id }}
               isDisabled={result.fetching || isRefetching || removeParentOneResult.fetching}
               key={`parentOne_key__${JSON.stringify(parentOne ? { label: parentOne.fullName, value: parentOne.id } : undefined)}`}
               value={parentOne ? { label: parentOne.fullName, value: parentOne.id } : undefined}
@@ -132,6 +135,8 @@ function EditUserParentsInline ({ user, refetch, isRefetching }) {
           <Stack flex='1'>
             <UserSelection
               menuPlacement='top'
+              query={LIST_USER_AVAILABLE_PARENTS}
+              variables={{ userID: user.id }}
               isDisabled={!parentOne || result.fetching || isRefetching || removeParentTwoResult.fetching}
               key={`parentTwo_key__${JSON.stringify(parentTwo ? { label: parentTwo.fullName, value: parentTwo.id } : undefined)}`}
               value={parentTwo ? { label: parentTwo.fullName, value: parentTwo.id } : undefined}

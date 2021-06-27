@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 
 import AsyncSelect from 'components/_select/AsyncSelect'
 
-import { useQuery, useClient } from 'urql'
-import { LIST_USERS } from 'graphql/queries/users'
+import { useClient } from 'urql'
 
 import { Stack } from '@chakra-ui/react'
 import ErrorAlert from 'components/_common/ErrorAlert'
@@ -12,7 +11,7 @@ export default function UserSelection (props) {
   const client = useClient()
 
   const {
-    query = LIST_USERS,
+    query,
     variables = {},
     placeholder = 'Select a User',
     filterUsers = val => val,
@@ -20,9 +19,6 @@ export default function UserSelection (props) {
   } = props
 
   const [error, setError] = useState()
-
-  // populate initial cache list
-  useQuery({ query, variables: { ...variables, search: '' } })
 
   const transformUsers = (user) => ({ value: user.id, label: user.fullName })
 
@@ -41,12 +37,12 @@ export default function UserSelection (props) {
       setError(error)
     }
   }
-
   return (
     <Stack spacing='4'>
       {error && <ErrorAlert> {error.message} </ErrorAlert>}
       <AsyncSelect
         {...rest}
+        defaultOptions
         placeholder={placeholder}
         loadOptions={loadUsers}
         noOptionsMessage={() => 'No users matching search '}

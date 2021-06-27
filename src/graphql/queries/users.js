@@ -87,6 +87,15 @@ export const LIST_USER_AVAILABLE_PARTNERS = gql`
   }
 `
 
+export const LIST_USER_AVAILABLE_PARENTS = gql`
+  query LIST_USER_AVAILABLE_PARENTS ($userID: String! $search: String!) {
+    users: getUserAvailableParents (userID: $userID where: { fullName: { contains: $search mode: "insensitive" } } orderBy: { fullName: asc } take: 5) {
+      id
+      fullName
+    }
+  }
+`
+
 export const LIST_USER_AVAILABLE_CHILDREN = gql`
   query LIST_USER_AVAILABLE_CHILDREN ($userID: String! $search: String!) {
     users: getUserAvailableChildren (userID: $userID where: { fullName: { contains: $search mode: "insensitive" } } orderBy: { fullName: asc } take: 5) {
