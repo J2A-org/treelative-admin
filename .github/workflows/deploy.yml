@@ -17,12 +17,16 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Create env file
+        run: |
+          touch .env
+          echo REACT_APP_GRAPHQL_URL=${{ secrets.REACT_APP_GRAPHQL_URL }} >> .env
+          echo REACT_APP_GOOGLE_LOCATION_API_KEY=${{ secrets.REACT_APP_GOOGLE_LOCATION_API_KEY }} >> .env
+          cat .env
       - name: Push to Docker Hub
-        env:
-          REACT_APP_GRAPHQL_URL: mooooooo
-          REACT_APP_GOOGLE_LOCATION_API_KEY: mooooooo
         uses: docker/build-push-action@v2
         with:
+          context: .
           push: true
           tags: jana19/treelative-admin:prod
       - name: Redeploy on Portainer
