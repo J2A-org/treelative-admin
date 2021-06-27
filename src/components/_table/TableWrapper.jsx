@@ -81,7 +81,7 @@ export default function TableWrapper (props) {
 
   return (
     <DataTable
-      rows={result?.data?.allData}
+      rows={result?.data?.allData || []}
       fields={fields}
       hideFields={hideFields}
       rowKey={rowKey}
