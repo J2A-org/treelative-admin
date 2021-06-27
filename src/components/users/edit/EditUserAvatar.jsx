@@ -98,7 +98,7 @@ export default function EditUserAvatar ({ user }) {
       <Box position='relative'>
         <Image
           src={avatarURL}
-          fallbackSrc='https://www.rogowaylaw.com/wp-content/uploads/Blank-Employee.jpg'
+          fallbackSrc={`https://ui-avatars.com/api/?name=${user.fullName}&background=random&rounded=true&font-size=0.5&bold=true`}
           boxSize='150px'
           borderRadius='full'
           alt={user.fullName}
