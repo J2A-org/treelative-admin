@@ -19,10 +19,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Create env file
         run: |
-          touch .env
-          echo REACT_APP_GRAPHQL_URL=${{ secrets.REACT_APP_GRAPHQL_URL }} >> .env
-          echo REACT_APP_GOOGLE_LOCATION_API_KEY=${{ secrets.REACT_APP_GOOGLE_LOCATION_API_KEY }} >> .env
-          cat .env
+          copy .env.prod .env
       - name: Push to Docker Hub
         uses: docker/build-push-action@v2
         with:
