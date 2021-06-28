@@ -10,18 +10,31 @@ import {
   FormErrorMessage
 } from '@chakra-ui/react'
 
+import { FaGoogle, FaFacebook, FaTwitter } from 'react-icons/fa'
+
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { object, string } from 'yup'
 
 import { useMutation } from 'urql'
-import { LOGIN } from 'graphql/mutations/auth'
+import { LOGIN, LOGIN_WITH_PROVIDER } from 'graphql/mutations/auth'
 
 import PasswordInput from 'components/_input/PasswordInput'
 import ErrorAlert from 'components/_common/ErrorAlert'
 import ErrorDialog from 'components/_common/ErrorDialog'
+import UnregisteredDialog from 'components/auth/UnregisteredDialog'
 
 import ForgotPassword from 'components/auth/ForgotPassword'
+
+import { google, twitter, facebook } from 'utils/firebase'
+
+import LoginWithProvider from 'components/auth/LoginWithProvider'
+
+const loginProviders = [
+  { label: 'Login with Google', icon: FaGoogle, provider: google },
+  { label: 'Login with Facebook', icon: FaFacebook, provider: facebook },
+  { label: 'Login with Twitter', icon: FaTwitter, provider: twitter }
+]
 
 const schemaValidation = object().shape({
   username: string().required(),
@@ -32,6 +45,7 @@ export default function LoginBox () {
   const [isForgotPasswordOpen, setIsForgotPasswordOpen] = useState(false)
 
   const [loginResult, login] = useMutation(LOGIN)
+  const [loginWithProviderResult, loginWithProvider] = useMutation(LOGIN_WITH_PROVIDER)
 
   const [internalError, setInternalError] = useState()
 
@@ -41,20 +55,33 @@ export default function LoginBox () {
 
   useEffect(() => { setTimeout(() => setFocus('username')) }, [])
 
-  const onSubmit = (input) => {
+  const onLoginSuccess = (result) => {
+    if (result.data) {
+      const prevPage = window.localStorage.getItem('REDIRECT_REFERRAL')
+      window.localStorage.removeItem('REDIRECT_REFERRAL')
+      window.localStorage.setItem('AUTH_SESSION_ID', result.data.login)
+      window.location.href = prevPage || '/'
+    }
+  }
+
+  const onLoginWithPassword = (input) => {
     login({ input })
-      .then(result => {
-        if (result.data) {
-          const prevPage = window.localStorage.getItem('REDIRECT_REFERRAL')
-          window.localStorage.removeItem('REDIRECT_REFERRAL')
-          window.localStorage.setItem('AUTH_SESSION_ID', result.data.login)
-          window.location.href = prevPage || '/'
-        }
-      })
+      .then(onLoginSuccess)
+      .catch(setInternalError)
+  }
+
+  const onLoginWithProvider = (token, { email }) => {
+    loginWithProvider({ email, token })
+      .then(onLoginSuccess)
       .catch(setInternalError)
   }
 
   if (internalError) return <ErrorDialog>{internalError.message}</ErrorDialog>
+
+  if (loginWithProviderResult?.error?.graphQLErrors[0]?.extensions.code === 'UNREGISTERED') {
+    // show unregistered user dialog
+    return <UnregisteredDialog error={loginWithProviderResult?.error} />
+  }
 
   return (
     <>
@@ -66,7 +93,7 @@ export default function LoginBox () {
         minW='25rem'
         rounded='lg'
         spacing='12'
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(onLoginWithPassword)}
       >
         <FormControl id='username' isRequired isInvalid={errors?.username}>
           <FormLabel>Username</FormLabel>
@@ -95,6 +122,15 @@ export default function LoginBox () {
           <Button type='submit' size='lg' fontSize='md' isLoading={loginResult.fetching}>
             Sign in
           </Button>
+        </Stack>
+        <Stack direction='row' width='100%' justifyContent='space-evenly'>
+          {loginProviders.map(loginProvider => (
+            <LoginWithProvider
+              {...loginProvider}
+              key={loginProvider.label}
+              onSuccess={onLoginWithProvider}
+            />
+          ))}
         </Stack>
       </Stack>
     </>
